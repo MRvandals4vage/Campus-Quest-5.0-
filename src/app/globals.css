@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Orbitron:wght@700;800;900&family=Bebas+Neue&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --spider-red: #e62429;
+  --spider-red-bright: #ff1e27;
+  --spider-blue: #152de0;
+  --spider-purple: #6315e0;
+  --spider-deep-purple: #8115e0;
+  --spider-pink: #e015d3;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Grid Pattern Background for Timeline Cards */
+.spider-grid-blue {
+  background-color: #152DE0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.spider-grid-purple {
+  background-color: #6315E0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.spider-grid-deeppurple {
+  background-color: #8115E0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.spider-grid-pink {
+  background-color: #E015D3;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animations */
+@keyframes webPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 8px rgba(230, 36, 41, 0.5));
+  }
+
+  50% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 22px rgba(230, 36, 41, 1));
+  }
+}
+
+@keyframes spiderFloat {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+
+@keyframes webSwing {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(5deg) scale(1.03);
+  }
+}
+
+@keyframes webDash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #000;
+  cursor: url('/assets/Cursor/cursor_svg.svg'), auto;
+}
+
+/* ================= SPIDER-MAN SWING ================= */
+
+@keyframes spiderman-swing {
+  0% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+
+  100% {
+    transform: rotate(-8deg);
+  }
+}
+
+.animate-spiderman-swing {
+  animation: spiderman-swing 2.8s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: url('/assets/Cursor/cursor_svg.svg'), pointer;
+}
+
+button {
+  font-family: inherit;
+  cursor: url('/assets/Cursor/cursor_svg.svg'), pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+@keyframes neonGlow {
+
+  0%,
+  100% {
+    box-shadow: 22px 20px 0px #000000, 0 0 15px rgba(224, 21, 211, 0.3);
+  }
+
+  50% {
+    box-shadow: 22px 20px 0px #000000, 0 0 35px rgba(224, 21, 211, 0.8);
+  }
+}
+
+.animate-web-pulse {
+  animation: webPulse 3s infinite ease-in-out;
+}
+
+.animate-spider-float {
+  animation: spiderFloat 4.5s infinite ease-in-out;
+}
+
+.animate-web-swing {
+  animation: webSwing 3.5s infinite ease-in-out;
+}
+
+.animate-web-dash {
+  stroke-dasharray: 12, 12;
+  animation: webDash 4s linear infinite;
+}
+
+/* Hard Offset Box Shadows from Figma */
+.figma-card-shadow {
+  box-shadow: 22px 20px 0px #000000;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e62429;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff1e27;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ===== Web-shooter reveal animation — required CSS ===== */
+
+/* Your card needs 3D flip support: a perspective wrapper around it
+   (e.g. your cards row) and this structure inside each card:
+   .card > .face.front  (visible side)
+   .card > .face.back   (revealed side)                              */
+
+.card {
+  position:relative;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition: transform .55s cubic-bezier(.4,.2,.2,1);
+}
+.card.pull { transition: transform .28s cubic-bezier(.3,0,.4,1); }
+.card.flipped { transform: rotateY(180deg); }
+.card.done { cursor:default; }
+
+.face {
+  position:absolute; inset:0;
+  backface-visibility:hidden;
+}
+.face.back { transform: rotateY(180deg); }
+
+/* Full-viewport overlay the web threads draw into.
+   Add <svg class="web-layer" id="webLayer"></svg> once, right before </body>. */
+svg.web-layer {
+  position:fixed; inset:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  z-index:40;
+}
+
+.web-strand {
+  fill:none;
+  stroke:#f4f4f4;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,.7));
+}
+.web-cross {
+  fill:none;
+  stroke:#f4f4f4;
+  stroke-width:1;
+  stroke-linecap:round;
+  opacity:0;
+  filter: drop-shadow(0 0 2px rgba(255,255,255,.6));
+}
+.web-cross.show { animation: crossFade .35s ease-out forwards; }
+@keyframes crossFade{ from{opacity:0;} to{opacity:.85;} }
+
+.impact { fill:none; stroke:#f4f4f4; stroke-width:1.4; opacity:0; transform-origin:center; }
+.impact.show { animation: impactPop .3s ease-out forwards; }
+@keyframes impactPop{
+  0%{ opacity:0; transform:scale(.2); }
+  45%{ opacity:1; transform:scale(1); }
+  100%{ opacity:0; transform:scale(1.3); }
+}

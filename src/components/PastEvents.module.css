@@ -1,0 +1,390 @@
+.scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 1080;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050308;
+  font-family: inherit;
+}
+
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.bgImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ---------- foreground layer (everything above the background) ---------- */
+
+.foreground {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ---------- webs (static — no sway) ---------- */
+
+.websWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1950 / 1248;
+  pointer-events: none;
+  z-index: 3;
+  transform: translateX(3.4%) scale(1.08);;
+}
+
+.websImg {
+  object-fit: contain;
+  object-position: top;
+}
+
+/* ---------- spiderman (static — no idle bob) ---------- */
+
+.spidermanWrap {
+  position: absolute;
+  left: 1.6%;
+  top: 41.5%;
+  width: 15.2%;
+  aspect-ratio: 342 / 388;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.spidermanImg {
+  object-fit: contain;
+}
+
+/* ---------- resting polaroid cards ---------- */
+
+.cardWrap {
+  position: absolute;
+  z-index: 5;
+}
+
+.clipWrap {
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+.card {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: 50% 0%;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.55));
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.28s ease;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.card:focus-visible {
+  outline: 3px solid #ff3b3b;
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+.cardImgWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cardImg {
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---------- title ---------- */
+/* Position/size measured directly off the reference mockup: left ~14.6%,
+   bottom ~10%, spanning roughly to 85% width. Anton is a tall, condensed,
+   heavy poster typeface that matches the reference much more closely than
+   a generic system bold — loaded at runtime via the <link> tag rendered
+   in PastEvents.tsx, with a graceful system-font fallback stack. */
+
+.title {
+  position: absolute;
+
+  /* CENTER HORIZONTALLY */
+  left: 50%;
+  bottom: 10.5%;
+
+  z-index: 6;
+  margin: 0;
+  padding: 0;
+
+  color: #fff;
+
+  font-family: 'Anton', sans-serif;
+  font-weight: 600;
+
+  /* Large, but not ridiculously tall */
+  font-size: clamp(28px, 8.5vw, 105px);
+
+  line-height: 0.9;
+  letter-spacing: 0.001em;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+
+  /*
+    Anton is naturally very condensed.
+    Stretch it horizontally to get the wider comic-style look.
+  */
+  transform: translateX(-50%) scaleX(1.35);
+  transform-origin: center center;
+
+  text-shadow:
+  0 8px 0 rgba(0, 0, 0, 0.538),
+  0 14px 18px rgba(0, 0, 0, 0.22);
+
+  pointer-events: none;
+}
+
+/* ---------- hover-expand clone (lives inside the scene) ---------- */
+.hoverBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: rgba(3, 1, 8, 0.28);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+.hoverClone {
+  position: absolute;
+  z-index: 40;
+  cursor: pointer;
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.65));
+}
+
+.hoverCloneImg {
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ---------- fullscreen click gallery (portal, true viewport) ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 2, 10, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.flightImage {
+  position: fixed;
+  z-index: 1001;
+  pointer-events: none;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
+}
+
+.flightImg {
+  object-fit: contain;
+}
+
+/* ---------- expanded viewer (settled "open" state) ---------- */
+/* One photo at a time, straight & centered; switching between photos is
+   driven purely by horizontal cursor position (see ExpandedViewer.tsx) —
+   no arrows, no drag handles. */
+
+.expandedGalleryItem {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktopOnly {
+  display: block;
+}
+
+.mobileOnly {
+  display: none;
+}
+
+.expandedStage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13vh 11vw 15vh;
+  box-sizing: border-box;
+  perspective: 1800px;
+}
+
+.expandedFrame {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
+}
+
+.expandedImg {
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.expandedCaption {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(15px, 2.4vw, 20px);
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  z-index: 1003;
+  pointer-events: none;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(20, 12, 28, 0.6);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+  z-index: 1003;
+}
+
+.closeBtn:hover,
+.closeBtn:focus-visible {
+  background: rgba(255, 59, 59, 0.85);
+  transform: scale(1.08) rotate(90deg);
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .desktopOnly {
+    display: none !important;
+  }
+  .mobileOnly {
+    display: block !important;
+  }
+
+  .scene {
+    aspect-ratio: auto;
+    min-height: 100svh;
+    position: relative;
+  }
+  
+  .foreground {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .bgImg {
+    object-position: 25% center !important;
+  }
+
+  .spidermanWrap {
+    top: auto !important;
+    bottom: 22% !important;
+    left: 8% !important;
+    width: 25% !important;
+    height: auto !important;
+  }
+
+  .websWrap {
+    width: 180% !important;
+    left: -40% !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  .cardWrap {
+    transform: none;
+  }
+
+  .card0 {
+    top: 8% !important;
+    left: 8% !important;
+    width: 45% !important;
+  }
+
+  .card1 {
+    top: 24% !important;
+    left: 48% !important;
+    width: 42% !important;
+  }
+
+  .card2 {
+    top: 38% !important;
+    left: 15% !important;
+    width: 45% !important;
+  }
+
+  .title {
+    width: 95% !important;
+    bottom: 5% !important;
+    letter-spacing: 0;
+  }
+
+  .clipWrap {
+    width: 42%;
+  }
+
+  .expandedStage {
+    padding: 9vh 7vw 13vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

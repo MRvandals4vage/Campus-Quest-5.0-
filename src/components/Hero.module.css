@@ -1,0 +1,782 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.background {
+    object-fit: fill;
+    z-index: -2;
+}
+
+.navbar {
+    position: absolute;
+
+    top: 24px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 93%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 100;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 75px;
+
+    padding: 18px 55px;
+
+    list-style: none;
+
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    color: #dddddd;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.navLinks li {
+    position: relative;
+
+    cursor: pointer;
+
+    transition: color 0.3s ease;
+}
+
+.navLinks li:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.registerBtn {
+    background: #ffffff;
+    color: #000000;
+
+    border: 2px solid #000;
+
+    border-radius: 999px;
+
+    padding: 11px 24px;
+
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbarContent {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heroTitle {
+    position: absolute;
+
+    top: 210px;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10;
+}
+
+.spiderContainer {
+    position: absolute;
+
+    top: 130px;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    z-index: 30;
+}
+
+.spiderImage {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.versionContainer {
+    position: absolute;
+
+    bottom: 160px;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    z-index: 35;
+}
+
+.versionImage {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.hangingSpider {
+    position: absolute;
+
+    top: 75px;
+    right: 90px;
+
+    z-index: 40;
+    transform-origin: top center;
+
+    animation: swing 3s ease-in-out infinite;
+    animation-delay: 2.3s;
+}
+
+.hangingSpiderImage {
+    display: block;
+    width: 60px;
+    height: auto;
+}
+
+@keyframes swing {
+
+    0% {
+        transform: rotate(-12deg);
+    }
+
+    50% {
+        transform: rotate(12deg);
+    }
+
+    100% {
+        transform: rotate(-12deg);
+    }
+
+}
+
+.titleImage {
+    width: 70%;
+    max-width: 1050px;
+    height: auto;
+}
+
+.spiderImage {
+    width: 30%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+}
+
+.versionImage {
+    width: 22%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
+}
+
+.menuButton {
+    display: none;
+
+    background: transparent;
+    color: white;
+
+    border: none;
+
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.mobileRegister {
+    display: none;
+}
+
+/* ================= Mobile Menu ================= */
+
+.mobileMenu {
+    display: none;
+}
+
+.mobileMenuLinks {
+    list-style: none;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+
+/* ================= TABLET ================= */
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   Same layout style as mobile
+   ========================================================= */
+
+@media (min-width: 601px) and (max-width: 1100px) {
+
+    .hero {
+        height: 100svh;
+        min-height: 650px;
+    }
+
+
+    /* ================= Navbar ================= */
+
+    .navbar {
+        top: 2.25%;
+        width: 94%;
+    }
+
+    .navbarContent {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* ================= Logo ================= */
+
+    .logo img {
+        width: clamp(60px, 9vw, 75px);
+        height: auto;
+    }
+
+
+    /* ================= Hide Desktop Navigation ================= */
+
+    .navLinks {
+        display: none;
+    }
+
+
+    /* ================= Hide Desktop Register ================= */
+
+    .desktopRegister {
+        display: none;
+    }
+
+
+    /* ================= Hamburger ================= */
+
+    .menuButton {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: clamp(42px, 5.85vw, 48px);
+        height: clamp(42px, 5.85vw, 48px);
+
+        background: transparent;
+        color: white;
+
+        border: none;
+
+        font-size: clamp(27px, 3.65vw, 30px);
+        line-height: 1;
+
+        cursor: pointer;
+    }
+
+
+    /* ================= Mobile Menu ================= */
+
+    .mobileMenu {
+        display: block;
+
+        position: absolute;
+
+        top: 9%;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 90%;
+
+        padding: 24px 0;
+
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+
+        background: rgba(0, 0, 0, 0.75);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        z-index: 90;
+
+        overflow: hidden;
+    }
+
+
+    .mobileMenuLinks {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 20px;
+
+        list-style: none;
+    }
+
+
+    .mobileMenuLinks li {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .mobileMenuLinks a {
+        display: block;
+
+        width: 100%;
+
+        padding: 6px 0;
+
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-size: clamp(16px, 2.2vw, 18px);
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .mobileMenuLinks a:hover {
+        color: #ffffff;
+
+        transform: scale(1.05);
+    }
+
+
+    /* ================= Campus Quest ================= */
+
+    .heroTitle {
+        top: 24.4%;
+    }
+
+    .titleImage {
+        width: 88%;
+        max-width: 850px;
+        height: auto;
+    }
+
+
+    /* ================= Spider-Man ================= */
+
+    .spiderContainer {
+        top: 19.7%;
+    }
+
+    .spiderImage {
+        width: 42%;
+        max-width: 400px;
+        height: auto;
+    }
+
+
+    /* ================= 5.0 ================= */
+
+    .versionContainer {
+        bottom: 30.25%;
+    }
+
+    .versionImage {
+        width: 30%;
+        max-width: 260px;
+        height: auto;
+    }
+
+
+    /* ================= Register ================= */
+
+    .mobileRegister {
+        display: flex;
+
+        position: absolute;
+
+        bottom: 23.25%;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        padding: clamp(9px, 1.35vw, 11px) clamp(25px, 3.65vw, 30px);
+
+        font-size: clamp(14px, 2.5vw, 17px);
+
+        white-space: nowrap;
+    }
+
+
+    /* ================= Hanging Spider ================= */
+
+    .hangingSpider {
+        top: 76.5%;
+        right: 46.95%;
+    }
+
+    .hangingSpiderImage {
+        width: clamp(38px, 5.35vw, 44px);
+        height: auto;
+    }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+
+    /* ================= Mobile Menu ================= */
+
+    .mobileMenu {
+        display: block;
+
+        position: absolute;
+
+        top: 9%;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 92%;
+
+        padding: 20px 0;
+
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+
+        background: rgba(0, 0, 0, 0.75);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        z-index: 90;
+
+        overflow: hidden;
+    }
+
+
+    .mobileMenuLinks {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 18px;
+    }
+
+
+    .mobileMenuLinks li {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .mobileMenuLinks a {
+        display: block;
+
+        width: 100%;
+
+        padding: 5px 0;
+
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-size: clamp(14px, 4vw, 16px);
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .mobileMenuLinks a:hover {
+        color: #ffffff;
+
+        transform: scale(1.05);
+    }
+
+
+    /* ================= Hero ================= */
+
+    .hero {
+        height: 100svh;
+        min-height: 650px;
+    }
+
+
+    /* ================= Navbar ================= */
+
+    .navbar {
+        top: 1.5%;
+        width: 94%;
+    }
+
+    .navbarContent {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* ================= Logo ================= */
+
+    .logo img {
+        width: clamp(48px, 15vw, 60px);
+        height: auto;
+    }
+
+
+    /* ================= Desktop Navigation ================= */
+
+    .navLinks {
+        display: none;
+    }
+
+
+    /* ================= Desktop Register ================= */
+
+    .desktopRegister {
+        display: none;
+    }
+
+
+    /* ================= Hamburger ================= */
+
+    .menuButton {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: clamp(36px, 11vw, 42px);
+        height: clamp(36px, 11vw, 42px);
+
+        font-size: clamp(23px, 7vw, 27px);
+    }
+
+
+    /* ================= Campus Quest ================= */
+
+    .heroTitle {
+        top: 31%;
+    }
+
+    .titleImage {
+        width: 96%;
+        max-width: 550px;
+        height: auto;
+    }
+
+
+    /* ================= Spider-Man ================= */
+
+    .spiderContainer {
+        top: 26.9%;
+    }
+
+    .spiderImage {
+        width: 50%;
+        max-width: 300px;
+        height: auto;
+    }
+
+
+    /* ================= 5.0 ================= */
+
+    .versionContainer {
+        bottom: 33.5%;
+    }
+
+    .versionImage {
+        width: 38%;
+        max-width: 210px;
+        height: auto;
+    }
+
+
+    /* ================= Mobile Register ================= */
+
+    .mobileRegister {
+        display: flex;
+
+        position: absolute;
+
+        bottom: 21%;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        padding: clamp(8px, 2.5vw, 10px) clamp(22px, 7vw, 28px);
+
+        font-size: clamp(10px, 3vw, 12px);
+
+        white-space: nowrap;
+    }
+
+
+    /* ================= Hanging Spider ================= */
+
+    .hangingSpider {
+        top: 73.5%;
+        right: 46%;
+    }
+
+    .hangingSpiderImage {
+        width: clamp(28px, 9vw, 34px);
+        height: auto;
+    }
+}
+
+/* ================= SMALL MOBILE ================= */
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero {
+        min-height: 620px;
+    }
+
+
+    /* ================= Navbar ================= */
+
+    .navbar {
+        top: 1.6%;
+        width: 94%;
+    }
+
+    .logo img {
+        width: clamp(48px, 15.12vw, 52px);
+        height: auto;
+    }
+
+    .menuButton {
+        width: clamp(36px, 11.05vw, 38px);
+        height: clamp(36px, 11.05vw, 38px);
+
+        font-size: clamp(22px, 6.98vw, 24px);
+    }
+
+
+    /* ================= Campus Quest ================= */
+
+    .heroTitle {
+        top: 29.5%;
+    }
+
+    .titleImage {
+        width: 96%;
+        max-width: 400px;
+        height: auto;
+    }
+
+
+    /* ================= Spider-Man ================= */
+
+    .spiderContainer {
+        top: 26.1%;
+    }
+
+    .spiderImage {
+        width: 50%;
+        max-width: 270px;
+        height: auto;
+    }
+
+
+    /* ================= 5.0 ================= */
+
+    .versionContainer {
+        bottom: 39.2%;
+    }
+
+    .versionImage {
+        width: 42%;
+        max-width: 190px;
+        height: auto;
+    }
+
+
+    /* ================= Register ================= */
+
+    .mobileRegister {
+        bottom: 32.7%;
+
+        padding: clamp(8px, 2.6vw, 9px) clamp(22px, 7.27vw, 25px);
+
+        font-size: clamp(10px, 3.2vw, 17px);
+    }
+
+
+    /* ================= Hanging Spider ================= */
+
+    .hangingSpider {
+        top: 67.5%;
+        right: 45%;
+    }
+
+    .hangingSpiderImage {
+        width: clamp(28px, 8.72vw, 30px);
+        height: auto;
+    }
+}
