@@ -261,13 +261,13 @@ export default function Sponsors() {
 
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
 
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100svh] pt-32 md:pt-24 pb-32 md:pb-0">
+      <div className="relative z-20 flex flex-col items-center justify-center min-h-[100svh] py-12 md:py-24">
 
         <div
-          className="mt-24 mb-32 md:mt-8 md:mb-36 pointer-events-none"
+          className="my-8 md:my-16 pointer-events-none px-4 w-full flex justify-center"
           style={{ filter: 'drop-shadow(0 4px 4px rgba(0,0,0,0.25)) drop-shadow(0 16px 4px rgba(0,0,0,0.48))' }}
         >
-          <Image src="/assets/Sponsors/SPONSORS.png" alt="SPONSORS" width={1135} height={150} style={{ width: 'clamp(350px, 90vw, 1400px)', height: 'auto', objectFit: 'contain' }} />
+          <Image src="/assets/Sponsors/SPONSORS.png" alt="SPONSORS" width={1135} height={150} className="w-full max-w-[85vw] md:max-w-[1000px] h-auto object-contain" />
         </div>
 
         {/* ── DESKTOP VIEW ── */}
@@ -334,66 +334,59 @@ export default function Sponsors() {
         </div>
 
         {/* ── MOBILE VIEW ── */}
-        <div className="flex md:hidden items-center justify-center w-full gap-8 px-4 mt-8">
-          <button onClick={() => setMobileIdx((prev) => (prev - 1 + 3) % 3)} className="active:scale-90 transition-transform">
+        <div className="md:hidden relative w-[calc(100%-32px)] max-w-[400px] mx-auto mt-8 mb-16 flex items-center justify-center">
+          <button onClick={() => setMobileIdx((prev) => (prev - 1 + 3) % 3)} className="absolute left-0 top-1/2 -translate-y-1/2 z-30 active:scale-90 transition-transform">
             <Image src="/assets/Sponsors/arrow-left.png" alt="Prev" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
           </button>
 
-          {mobileIdx === 0 && (
-            <div
-              className="card relative flex-shrink-0"
-              data-side="bottom"
-              style={{
-                width: 'clamp(140px, 45vw, 200px)',
-                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
-              }}
-            >
-              <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
-                <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
+          <div className="w-full px-14 flex justify-center items-center">
+            {mobileIdx === 0 && (
+              <div
+                className="card relative flex-shrink-0 w-full"
+                data-side="bottom"
+                style={{ aspectRatio: '321 / 420' }}
+              >
+                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
+                  <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
+                </div>
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
+                  GOLD SPONSOR
+                </div>
               </div>
-              <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl" style={{ background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
-                GOLD SPONSOR
-              </div>
-            </div>
-          )}
+            )}
 
-          {mobileIdx === 1 && (
-            <div
-              className="card relative flex-shrink-0"
-              data-side="bottom"
-              style={{
-                width: 'clamp(140px, 45vw, 200px)',
-                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
-              }}
-            >
-              <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
-                <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
+            {mobileIdx === 1 && (
+              <div
+                className="card relative flex-shrink-0 w-full"
+                data-side="bottom"
+                style={{ aspectRatio: '321 / 420' }}
+              >
+                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
+                  <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
+                </div>
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
+                  SILVER SPONSOR
+                </div>
               </div>
-              <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl" style={{ background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
-                SILVER SPONSOR
-              </div>
-            </div>
-          )}
+            )}
 
-          {mobileIdx === 2 && (
-            <div
-              className="card relative flex-shrink-0"
-              data-side="bottom"
-              style={{
-                width: 'clamp(140px, 45vw, 200px)',
-                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
-              }}
-            >
-              <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
-                <img src="/assets/Sponsors/Bronze glow.png" alt="Bronze Sponsor" style={cardCrop} />
+            {mobileIdx === 2 && (
+              <div
+                className="card relative flex-shrink-0 w-full"
+                data-side="bottom"
+                style={{ aspectRatio: '321 / 420' }}
+              >
+                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
+                  <img src="/assets/Sponsors/Bronze glow.png" alt="Bronze Sponsor" style={cardCrop} />
+                </div>
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
+                  BRONZE SPONSOR
+                </div>
               </div>
-              <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl" style={{ background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
-                BRONZE SPONSOR
-              </div>
-            </div>
-          )}
+            )}
+          </div>
 
-          <button onClick={() => setMobileIdx((prev) => (prev + 1) % 3)} className="active:scale-90 transition-transform">
+          <button onClick={() => setMobileIdx((prev) => (prev + 1) % 3)} className="absolute right-0 top-1/2 -translate-y-1/2 z-30 active:scale-90 transition-transform">
             <Image src="/assets/Sponsors/arrow-right.png" alt="Next" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
           </button>
         </div>
