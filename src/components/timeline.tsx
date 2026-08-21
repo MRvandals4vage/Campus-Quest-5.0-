@@ -485,18 +485,58 @@ export default function Timeline() {
             width: "100%",
             background: "#000",
             margin: 0,
-            padding: 0,
-            display: "block",
+            padding: "80px 0 0 0",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            overflow: "hidden"
           }}
         >
-          <Image
-            src="/assets/timeline/Timeline.svg"
-            alt="Timeline"
-            width={430}
-            height={1205}
-            style={{ width: "100%", height: "auto", display: "block" }}
-            priority
-          />
+          <div style={{ padding: "0 20px", marginBottom: "30px", width: "100%" }}>
+            <Image
+              src="/assets/timeline/TIMELINE.png"
+              alt="Timeline"
+              width={600}
+              height={150}
+              style={{ width: "100%", maxWidth: "400px", height: "auto", margin: "0 auto", display: "block" }}
+            />
+          </div>
+          
+          <div style={{ width: "100%", maxWidth: "500px", margin: "0 auto", position: "relative" }}>
+            {MOBILE_PHASES.map((phase, i) => (
+              <MobilePhase 
+                key={phase.id} 
+                building={phase.building} 
+                card={phase.card} 
+                alt={phase.alt} 
+                cardSide={phase.cardSide}
+                delay={i * 100}
+              />
+            ))}
+          </div>
+          
+          {/* Mobile Prizepool section */}
+          <div style={{ width: "100%", marginTop: "60px", position: "relative" }}>
+             <Image
+                src="/assets/timeline/building5.png"
+                alt="Building 5"
+                width={800}
+                height={600}
+                style={{ width: "100%", height: "auto", display: "block", transform: "scaleX(-1)" }}
+             />
+             <div style={{ position: "absolute", top: "15%", left: "5%", width: "90%" }}>
+                <Image
+                  src="/assets/timeline/Billboard.png"
+                  alt="Billboard"
+                  width={800}
+                  height={800}
+                  style={{ width: "100%", height: "auto", display: "block", filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.8))" }}
+                />
+                <div style={{ position: "absolute", left: "6.8%", top: "27.2%", width: "86.4%", height: "46%", background: "#000" }}>
+                  <Image src="/assets/timeline/prizepool.png" alt="Prize Pool" fill style={{ objectFit: "cover" }} />
+                </div>
+             </div>
+          </div>
         </div>
       )}
 
