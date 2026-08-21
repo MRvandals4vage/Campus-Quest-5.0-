@@ -160,20 +160,23 @@ export default function PastEvents() {
 
       <div className={styles.bgWrap} aria-hidden="true">
         <picture>
-          <source media="(max-width: 768px)" srcSet="/assets/Past events/bg-webs.png" />
-          <img src="/assets/Past events/bg-spiderman-webs.png" alt="" className={styles.bgImg} style={{ position: 'absolute', height: '100%', width: '100%', inset: 0, objectFit: 'cover', objectPosition: 'center' }} />
+          <source media="(max-width: 768px)" srcSet="/assets/Past%20events/bg-webs.png" />
+          <img src="/assets/Past%20events/bg-spiderman-webs.png" alt="" className={styles.bgImg} style={{ position: 'absolute', height: '100%', width: '100%', inset: 0, objectFit: 'cover', objectPosition: 'center' }} />
         </picture>
       </div>
 
       <div className={styles.foreground}>
-        <div className={styles.websWrap} aria-hidden="true">
-          <Image src="/assets/Past events/Web.png" alt="" fill sizes="100vw" className={styles.websImg} />
-        </div>
-
+        {/* web overlay removed as it's baked into background */}
 
         {pastEvents.map((ev, i) => {
           const isHoveredHere = hover?.id === ev.id;
           const isOpenHere = gallery !== null && gallery.index === i;
+          
+          // In mobile view (mode === 'click'), user wants polaroid 2 and 3 (i === 1 or 2) to have inverted rotation
+          const invertRotation = mode === 'click' && (i === 1 || i === 2);
+          const currentRotate = invertRotation ? -ev.rotate : ev.rotate;
+          const currentClipRotate = invertRotation ? -ev.clipRotate : ev.clipRotate;
+
           return (
             <div
               key={ev.id}
@@ -187,7 +190,7 @@ export default function PastEvents() {
                   top: `${ev.clipY}%`,
                   width: `${ev.clipWidth}vw`,
                   height: `${ev.clipHeight}vw`,
-                  transform: `translateX(-50%) rotate(${ev.clipRotate}deg)`,
+                  transform: `translateX(-50%) rotate(${currentClipRotate}deg)`,
                 }}
               >
                 <Image src="/assets/Past events/Clip.png" alt="" fill sizes="5vw" />
@@ -201,7 +204,7 @@ export default function PastEvents() {
                 className={styles.card}
                 style={{
                   aspectRatio: ev.aspect,
-                  transform: `rotate(${ev.rotate}deg)`,
+                  transform: `rotate(${currentRotate}deg)`,
                   opacity: isHoveredHere || isOpenHere ? 0 : 1,
                   transition: 'opacity 0.28s ease',
                 }}
