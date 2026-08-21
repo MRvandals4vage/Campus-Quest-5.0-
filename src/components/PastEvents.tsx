@@ -178,12 +178,12 @@ export default function PastEvents() {
           
           if (mode === 'click') {
             if (i === 1) {
-              // Polaroid 2: Rotate Left (negative)
-              currentRotate = -Math.abs(ev.rotate) - 2; 
+              // Polaroid 2: Rotate Left (negative), adding more tilt
+              currentRotate = -Math.abs(ev.rotate) - 10; 
               currentClipRotate = -Math.abs(ev.clipRotate);
             } else if (i === 2) {
-              // Polaroid 3: Rotate Right (positive)
-              currentRotate = Math.abs(ev.rotate) + 4;
+              // Polaroid 3: Rotate Right (positive), adding more tilt
+              currentRotate = Math.abs(ev.rotate) + 12;
               currentClipRotate = Math.abs(ev.clipRotate);
             }
           }
