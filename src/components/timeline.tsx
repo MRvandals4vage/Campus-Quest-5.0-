@@ -492,8 +492,8 @@ export default function Timeline() {
           <Image
             src="/assets/timeline/Timeline.svg"
             alt="Timeline"
-            width={1000}
-            height={5000}
+            width={430}
+            height={1205}
             style={{ width: "100%", height: "auto", display: "block" }}
             priority
           />
