@@ -28,14 +28,14 @@ export default function About() {
           className="
             absolute
             left-[13%]
-            top-[5%]
+            top-[15%]
             w-[600px]
             max-w-[48vw]
             h-auto
             z-20
 
             max-md:left-[7%]
-            max-md:top-[5%]
+            max-md:top-[20%]
             max-md:w-[420px]
             max-md:max-w-[50vw]
           "
