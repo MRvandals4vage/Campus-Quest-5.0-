@@ -264,7 +264,7 @@ export default function Sponsors() {
       <div className="relative z-20 flex flex-col items-center justify-center min-h-[100svh] py-12 md:py-24">
 
         <div
-          className="my-8 md:my-16 pointer-events-none px-4 w-full flex justify-center"
+          className="mt-8 mb-16 md:my-16 pointer-events-none px-4 w-full flex justify-center"
           style={{ filter: 'drop-shadow(0 4px 4px rgba(0,0,0,0.25)) drop-shadow(0 16px 4px rgba(0,0,0,0.48))' }}
         >
           <Image src="/assets/Sponsors/SPONSORS.png" alt="SPONSORS" width={1135} height={150} className="w-full max-w-[85vw] md:max-w-[1000px] h-auto object-contain" />
@@ -334,7 +334,7 @@ export default function Sponsors() {
         </div>
 
         {/* ── MOBILE VIEW ── */}
-        <div className="md:hidden relative w-[calc(100%-32px)] max-w-[400px] mx-auto mt-8 mb-16 flex items-center justify-center">
+        <div className="md:hidden relative w-[calc(100%-32px)] max-w-[280px] mx-auto mt-12 mb-16 flex items-center justify-center">
           <button onClick={() => setMobileIdx((prev) => (prev - 1 + 3) % 3)} className="absolute left-0 top-1/2 -translate-y-1/2 z-30 active:scale-90 transition-transform">
             <Image src="/assets/Sponsors/arrow-left.png" alt="Prev" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
           </button>
