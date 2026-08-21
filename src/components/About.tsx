@@ -161,16 +161,17 @@ export default function About() {
           text-center text-white
           min-h-screen
           w-full
-          px-6 pt-[80px] pb-10
+          px-6 py-10
         "
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
         {/* TOP GROUP: heading + spider-man */}
-        <div className="flex flex-col items-center w-full mt-[40px]">
+        <div className="flex flex-col items-center w-full">
           <img
             src="/assests/about/About heading.png"
             alt="About"
             className="w-[80vw] max-w-[300px] h-auto z-20"
+            style={{ marginTop: '100px' }}
           />
           <img
             src="/assests/about/Spiderman.png"
