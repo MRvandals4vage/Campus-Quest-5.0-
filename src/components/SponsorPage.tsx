@@ -253,7 +253,7 @@ export default function Sponsors() {
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-black min-h-[auto] md:min-h-[100svh]"
+      className="relative w-full overflow-hidden bg-black min-h-[100svh] md:min-h-[100svh]"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image src="/assets/Sponsors/bg.png" alt="Hexagonal background" fill className="object-cover" priority />
@@ -261,10 +261,10 @@ export default function Sponsors() {
 
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
 
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-[auto] md:min-h-screen pt-12 md:pt-24 pb-20 md:pb-0">
+      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100svh] pt-12 md:pt-24 pb-20 md:pb-0">
 
         <div
-          className="mb-20 md:mb-36 pointer-events-none"
+          className="mt-12 mb-24 md:mt-8 md:mb-36 pointer-events-none"
           style={{ filter: 'drop-shadow(0 4px 4px rgba(0,0,0,0.25)) drop-shadow(0 16px 4px rgba(0,0,0,0.48))' }}
         >
           <Image src="/assets/Sponsors/SPONSORS.png" alt="SPONSORS" width={1135} height={150} style={{ width: 'clamp(350px, 90vw, 1400px)', height: 'auto', objectFit: 'contain' }} />
@@ -344,8 +344,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(240px, 70vw, 350px)',
-                height: 'calc(clamp(240px, 70vw, 350px) * (420 / 321))',
+                width: 'clamp(120px, 35vw, 175px)',
+                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
@@ -362,8 +362,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(240px, 70vw, 350px)',
-                height: 'calc(clamp(240px, 70vw, 350px) * (420 / 321))',
+                width: 'clamp(120px, 35vw, 175px)',
+                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
@@ -380,8 +380,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(240px, 70vw, 350px)',
-                height: 'calc(clamp(240px, 70vw, 350px) * (420 / 321))',
+                width: 'clamp(120px, 35vw, 175px)',
+                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
