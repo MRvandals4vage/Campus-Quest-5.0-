@@ -161,7 +161,7 @@ export default function About() {
           text-center text-white
           min-h-screen
           w-full
-          px-6 py-10
+          px-6 pt-24 pb-10
         "
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
