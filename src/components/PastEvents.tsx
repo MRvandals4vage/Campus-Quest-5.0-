@@ -173,9 +173,20 @@ export default function PastEvents() {
           const isOpenHere = gallery !== null && gallery.index === i;
           
           // In mobile view (mode === 'click'), user wants polaroid 2 and 3 (i === 1 or 2) to have inverted rotation
-          const invertRotation = mode === 'click' && (i === 1 || i === 2);
-          const currentRotate = invertRotation ? -ev.rotate : ev.rotate;
-          const currentClipRotate = invertRotation ? -ev.clipRotate : ev.clipRotate;
+          let currentRotate = ev.rotate;
+          let currentClipRotate = ev.clipRotate;
+          
+          if (mode === 'click') {
+            if (i === 1) {
+              // Polaroid 2: Rotate Left (negative)
+              currentRotate = -Math.abs(ev.rotate) - 2; 
+              currentClipRotate = -Math.abs(ev.clipRotate);
+            } else if (i === 2) {
+              // Polaroid 3: Rotate Right (positive)
+              currentRotate = Math.abs(ev.rotate) + 4;
+              currentClipRotate = Math.abs(ev.clipRotate);
+            }
+          }
 
           return (
             <div
