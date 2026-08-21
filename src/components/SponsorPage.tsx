@@ -261,10 +261,10 @@ export default function Sponsors() {
 
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
 
-      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100svh] pt-12 md:pt-24 pb-20 md:pb-0">
+      <div className="relative z-20 flex flex-col items-center justify-start min-h-[100svh] pt-32 md:pt-24 pb-32 md:pb-0">
 
         <div
-          className="mt-12 mb-24 md:mt-8 md:mb-36 pointer-events-none"
+          className="mt-24 mb-32 md:mt-8 md:mb-36 pointer-events-none"
           style={{ filter: 'drop-shadow(0 4px 4px rgba(0,0,0,0.25)) drop-shadow(0 16px 4px rgba(0,0,0,0.48))' }}
         >
           <Image src="/assets/Sponsors/SPONSORS.png" alt="SPONSORS" width={1135} height={150} style={{ width: 'clamp(350px, 90vw, 1400px)', height: 'auto', objectFit: 'contain' }} />
@@ -334,7 +334,7 @@ export default function Sponsors() {
         </div>
 
         {/* ── MOBILE VIEW ── */}
-        <div className="flex md:hidden items-center justify-center w-full gap-4 px-4">
+        <div className="flex md:hidden items-center justify-center w-full gap-8 px-4 mt-8">
           <button onClick={() => setMobileIdx((prev) => (prev - 1 + 3) % 3)} className="active:scale-90 transition-transform">
             <Image src="/assets/Sponsors/arrow-left.png" alt="Prev" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
           </button>
@@ -344,8 +344,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(120px, 35vw, 175px)',
-                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
+                width: 'clamp(140px, 45vw, 200px)',
+                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
@@ -362,8 +362,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(120px, 35vw, 175px)',
-                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
+                width: 'clamp(140px, 45vw, 200px)',
+                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
@@ -380,8 +380,8 @@ export default function Sponsors() {
               className="card relative flex-shrink-0"
               data-side="bottom"
               style={{
-                width: 'clamp(120px, 35vw, 175px)',
-                height: 'calc(clamp(120px, 35vw, 175px) * (420 / 321))',
+                width: 'clamp(140px, 45vw, 200px)',
+                height: 'calc(clamp(140px, 45vw, 200px) * (420 / 321))',
               }}
             >
               <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
