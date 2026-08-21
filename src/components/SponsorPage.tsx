@@ -253,6 +253,7 @@ export default function Sponsors() {
 
   return (
     <div
+      id="sponsors"
       className="relative w-full overflow-hidden bg-black min-h-[100svh] md:min-h-[100svh]"
     >
       <div className="absolute inset-0 z-0 pointer-events-none">

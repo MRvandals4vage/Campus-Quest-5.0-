@@ -35,10 +35,16 @@ export default function Navbar() {
               <Link href="/" className={styles.navLink}>Home</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/about" className={styles.navLink}>About</Link>
+              <Link href="/#about" className={styles.navLink}>About</Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/timeline" className={styles.navLink}>Timeline</Link>
+              <Link href="/#timeline" className={styles.navLink}>Timeline</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/#sponsors" className={styles.navLink}>Sponsors</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/#pastevents" className={styles.navLink}>Past Events</Link>
             </li>
           </ul>
 
@@ -84,13 +90,23 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" onClick={() => setMenuOpen(false)}>
+                <Link href="/#about" onClick={() => setMenuOpen(false)}>
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/timeline" onClick={() => setMenuOpen(false)}>
+                <Link href="/#timeline" onClick={() => setMenuOpen(false)}>
                   Timeline
+                </Link>
+              </li>
+              <li>
+                <Link href="/#sponsors" onClick={() => setMenuOpen(false)}>
+                  Sponsors
+                </Link>
+              </li>
+              <li>
+                <Link href="/#pastevents" onClick={() => setMenuOpen(false)}>
+                  Past Events
                 </Link>
               </li>
             </ul>
