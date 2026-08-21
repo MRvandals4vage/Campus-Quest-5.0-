@@ -161,12 +161,12 @@ export default function About() {
           text-center text-white
           min-h-screen
           w-full
-          px-6 pt-12 pb-10
+          px-6 pt-[80px] pb-10
         "
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
         {/* TOP GROUP: heading + spider-man */}
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full mt-[40px]">
           <img
             src="/assests/about/About heading.png"
             alt="About"
