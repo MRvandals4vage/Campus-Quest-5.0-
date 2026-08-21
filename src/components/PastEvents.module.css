@@ -27,24 +27,6 @@
   z-index: 1;
 }
 
-/* ---------- webs (static — no sway) ---------- */
-
-.websWrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1950 / 1248;
-  pointer-events: none;
-  z-index: 3;
-  transform: translateX(3.4%) scale(1.08);;
-}
-
-.websImg {
-  object-fit: contain;
-  object-position: top;
-}
-
 /* ---------- spiderman (static — no idle bob) ---------- */
 
 .spidermanWrap {
@@ -337,13 +319,6 @@
     left: 8% !important;
     width: 25% !important;
     height: auto !important;
-  }
-
-  .websWrap {
-    width: 180% !important;
-    left: -40% !important;
-    top: 0 !important;
-    transform: none !important;
   }
 
   .cardWrap {
