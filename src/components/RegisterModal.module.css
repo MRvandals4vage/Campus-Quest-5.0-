@@ -1,4 +1,8 @@
-/* ================= Overlay ================= */
+/* =====================================================
+   RegisterModal — Apple-style Frosted Glass
+   ===================================================== */
+
+/* =========== Overlay =========== */
 .overlay {
     position: fixed;
     inset: 0;
@@ -8,248 +12,163 @@
     align-items: center;
     justify-content: center;
 
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 
-    padding: 20px;
+    padding: 16px;
 }
 
-/* ================= Glass Modal ================= */
+/* =========== Modal Shell =========== */
 .modal {
     position: relative;
-
     width: 100%;
-    max-width: 580px;
-    
-    /* Give modal fixed height limits but hide overflow */
-    max-height: 90vh;
+    max-width: 600px;
+    max-height: 92vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 
-    padding: 0;
-    border-radius: 28px;
+    /* Apple-style frosted glass */
+    background: rgba(28, 28, 32, 0.72);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 2px 0 0 rgba(255, 255, 255, 0.06) inset,
+        0 0 0 0.5px rgba(255, 255, 255, 0.08),
+        0 24px 64px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(0, 0, 0, 0.4);
+
     color: #fff;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
+/* =========== Scroll Area =========== */
 .modalContentWrap {
     position: relative;
-    z-index: 30;
-    padding: 40px 36px 36px;
+    z-index: 10;
+    padding: 32px 32px 28px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Custom scrollbar on the scrollable wrapper */
-.modalContentWrap::-webkit-scrollbar {
-    width: 6px;
-}
-.modalContentWrap::-webkit-scrollbar-track {
-    background: transparent;
-}
+/* Custom thin scrollbar */
+.modalContentWrap::-webkit-scrollbar { width: 4px; }
+.modalContentWrap::-webkit-scrollbar-track { background: transparent; }
 .modalContentWrap::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
 }
 .modalContentWrap::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.22);
 }
 
-/* ================= Refraction Glow Orbs ================= */
-.glowOrb1,
-.glowOrb2,
-.glowOrb3 {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    filter: blur(60px);
-    opacity: 0.35;
-}
-
-.glowOrb1 {
-    top: -40px;
-    right: -30px;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(226, 54, 54, 0.6), transparent 70%);
-    animation: float1 6s ease-in-out infinite;
-}
-
-.glowOrb2 {
-    bottom: -30px;
-    left: -20px;
-    width: 160px;
-    height: 160px;
-    background: radial-gradient(circle, rgba(26, 58, 138, 0.6), transparent 70%);
-    animation: float2 7s ease-in-out infinite;
-}
-
-.glowOrb3 {
-    top: 50%;
-    left: 50%;
-    width: 120px;
-    height: 120px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
-    animation: float3 5s ease-in-out infinite;
-}
-
-@keyframes float1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-15px, 20px) scale(1.1); }
-}
-
-@keyframes float2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(20px, -15px) scale(1.15); }
-}
-
-@keyframes float3 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.4; }
-}
-
-/* ================= Modal Container ================= */
-.modal {
-    position: relative;
-    width: 100%;
-    max-width: 650px;
-    max-height: 90vh;
-    overflow-y: auto;
-    
-    /* Liquid Glassmorphism Core */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.03) 100%
-    );
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 
-        0 8px 32px 0 rgba(0, 0, 0, 0.37),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-
-    padding: 40px 32px 32px;
-    z-index: 10;
-}
-
-/* Hide scrollbar for the modal */
-.modal::-webkit-scrollbar {
-    display: none;
-}
-.modal {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* ================= Header ================= */
-.header {
-    text-align: center;
-    margin-bottom: 24px;
-    position: relative;
-}
-
+/* =========== Close Button =========== */
 .closeBtn {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 20px;
-    width: 36px;
-    height: 36px;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    line-height: 1;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    z-index: 50;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease;
 }
 
 .closeBtn:hover {
-    background: rgba(226, 54, 54, 0.8);
-    color: white;
+    background: rgba(226, 54, 54, 0.7);
+    border-color: rgba(226, 54, 54, 0.5);
+    color: #fff;
     transform: rotate(90deg);
 }
 
+/* =========== Header =========== */
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-right: 36px; /* avoid close btn */
+}
+
 .title {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, #ff4d4d, #ffffff 50%, #4d7cff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 6px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #ffffff;
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .subtitle {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
     font-weight: 400;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px;
 }
 
 .yearBadge {
-    display: inline-block;
-    margin-top: 14px;
-    padding: 8px 20px;
-
-    background: linear-gradient(
-        135deg,
-        rgba(226, 54, 54, 0.2),
-        rgba(226, 54, 54, 0.08)
-    );
-    border: 1px solid rgba(226, 54, 54, 0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 12px;
+    padding: 6px 14px;
+    background: rgba(226, 54, 54, 0.15);
+    border: 1px solid rgba(226, 54, 54, 0.3);
     border-radius: 999px;
-
-    font-size: 13px;
-    font-weight: 800;
-    color: #ff6b6b;
-    letter-spacing: 0.5px;
-
+    font-size: 11px;
+    font-weight: 700;
+    color: #ff7070;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
-
     animation: pulseBadge 2.5s ease-in-out infinite;
 }
 
 @keyframes pulseBadge {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(226, 54, 54, 0.3); }
-    50% { box-shadow: 0 0 20px 4px rgba(226, 54, 54, 0.15); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(226, 54, 54, 0.25); }
+    50%       { box-shadow: 0 0 14px 3px rgba(226, 54, 54, 0.12); }
 }
 
-/* ================= Form ================= */
+/* =========== Divider =========== */
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    margin: 0 -32px 24px;
+}
+
+/* =========== Form =========== */
 .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: relative;
-    z-index: 2;
 }
 
-/* ================= Error Box ================= */
+/* =========== Error Box =========== */
 .errorBox {
-    padding: 12px 16px;
-    background: rgba(226, 54, 54, 0.12);
-    border: 1px solid rgba(226, 54, 54, 0.35);
-    border-radius: 12px;
+    padding: 11px 14px;
+    background: rgba(226, 54, 54, 0.1);
+    border: 1px solid rgba(226, 54, 54, 0.3);
+    border-radius: 10px;
     color: #ff8a8a;
     font-size: 13px;
     font-weight: 500;
+    line-height: 1.4;
 }
 
-/* ================= Field Group ================= */
+/* =========== Team Name Field =========== */
 .fieldGroup {
     display: flex;
     flex-direction: column;
@@ -257,358 +176,335 @@
 }
 
 .label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.3px;
-    padding-left: 2px;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding-left: 1px;
 }
 
-/* ================= Glass Inputs ================= */
-.input,
-.select {
-    width: 100%;
-    padding: 13px 16px;
-
-    background: rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    color: #fff;
-    font-size: 14px;
-    font-family: inherit;
-
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-}
-
-.input:focus,
-.select:focus {
-    border-color: rgba(226, 54, 54, 0.4);
-    background: rgba(0, 0, 0, 0.25);
-    box-shadow:
-        inset 0 2px 4px rgba(0, 0, 0, 0.2),
-        0 0 0 3px rgba(226, 54, 54, 0.1),
-        0 0 20px rgba(226, 54, 54, 0.08);
-}
-
-.select {
-    cursor: pointer;
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.5)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-}
-
-.select option {
-    background: #1a1a2e;
-    color: #fff;
-}
-
-/* ================= Members Section ================= */
+/* =========== Member Section =========== */
 .membersSection {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
-.membersHeader {
+/* =========== Tab Bar =========== */
+.tabBar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-}
-
-.membersTitle {
-    font-size: 14px;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.addMemberBtn {
-    padding: 7px 16px;
-
-    background: rgba(77, 124, 255, 0.15);
-    border: 1px solid rgba(77, 124, 255, 0.3);
-    border-radius: 999px;
-
-    color: #6b9fff;
-    font-size: 12px;
-    font-weight: 700;
-    font-family: inherit;
-    letter-spacing: 0.3px;
-
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.addMemberBtn:hover {
-    background: rgba(77, 124, 255, 0.25);
-    border-color: rgba(77, 124, 255, 0.5);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(77, 124, 255, 0.15);
-}
-
-/* ================= Member Card ================= */
-.memberCard {
-    padding: 18px 16px 16px;
-
-    background: rgba(255, 255, 255, 0.03);
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-
-    transition: border-color 0.3s ease;
+    border-radius: 12px;
+    padding: 5px;
+    flex-wrap: wrap;
 }
 
-.memberCard:hover {
-    border-color: rgba(255, 255, 255, 0.15);
+.tab {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.tab.tabActive {
+    background: rgba(226, 54, 54, 0.75);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 1px 6px rgba(226, 54, 54, 0.3);
+}
+
+.addTabBtn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 18px;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.addTabBtn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* =========== Member Card =========== */
+.memberCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: 20px 18px;
 }
 
 .memberCardHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .memberNumber {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: rgba(226, 54, 54, 0.8);
+    color: rgba(226, 54, 54, 0.85);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
 }
 
 .removeMemberBtn {
-    width: 26px;
-    height: 26px;
-
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: rgba(226, 54, 54, 0.1);
-    border: 1px solid rgba(226, 54, 54, 0.2);
+    background: rgba(226, 54, 54, 0.08);
+    border: 1px solid rgba(226, 54, 54, 0.18);
     border-radius: 50%;
-
     color: rgba(226, 54, 54, 0.7);
-    font-size: 12px;
-
+    font-size: 11px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .removeMemberBtn:hover {
-    background: rgba(226, 54, 54, 0.25);
-    color: #ff6b6b;
-    transform: scale(1.1);
+    background: rgba(226, 54, 54, 0.22);
+    color: #ff7070;
 }
 
-.memberFields {
-    display: flex;
-    flex-direction: column;
+/* =========== Two-column member field grid =========== */
+.memberGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
 }
 
-/* ================= Submit Button ================= */
-.submitBtn {
-    width: 100%;
-    padding: 16px;
-    margin-top: 6px;
+/* Full-width override */
+.fullWidth {
+    grid-column: 1 / -1;
+}
 
-    background: linear-gradient(
-        135deg,
-        rgba(226, 54, 54, 0.85),
-        rgba(180, 30, 30, 0.9)
-    );
-    border: 1px solid rgba(255, 100, 100, 0.3);
-    border-radius: 16px;
+/* =========== Glass Inputs =========== */
+.input,
+.select {
+    width: 100%;
+    padding: 11px 13px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 11px;
 
     color: #fff;
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 14px;
     font-family: inherit;
-    letter-spacing: 0.8px;
+
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.28);
+}
+
+.input:focus,
+.select:focus {
+    border-color: rgba(226, 54, 54, 0.5);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 0 3px rgba(226, 54, 54, 0.1);
+}
+
+/* Ensure font-size ≥ 16px on mobile to prevent iOS zoom */
+@media (max-width: 640px) {
+    .input,
+    .select {
+        font-size: 16px;
+    }
+}
+
+.select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 13px center;
+    padding-right: 36px;
+}
+
+.select option {
+    background: #1c1c20;
+    color: #fff;
+}
+
+/* =========== Submit Button =========== */
+.submitBtn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 4px;
+
+    background: linear-gradient(135deg, #e23636 0%, #b01e1e 100%);
+    border: 1px solid rgba(255, 100, 100, 0.25);
+    border-radius: 14px;
+
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.5px;
 
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 
     position: relative;
     overflow: hidden;
 }
 
-.submitBtn::before {
-    content: "";
+.submitBtn::after {
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.1) 50%,
-        transparent 100%
-    );
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.submitBtn:hover::before {
-    transform: translateX(100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .submitBtn:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 8px 32px rgba(226, 54, 54, 0.3),
-        0 0 60px rgba(226, 54, 54, 0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(226, 54, 54, 0.35);
 }
 
 .submitBtn:active {
     transform: translateY(0);
+    box-shadow: none;
 }
 
 .submitBtn:disabled {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: not-allowed;
     transform: none;
 }
 
-/* ================= Spinner ================= */
+/* =========== Spinner =========== */
 .spinner {
     display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(255, 255, 255, 0.25);
     border-top-color: #fff;
     border-radius: 50%;
-    animation: spin 0.7s linear infinite;
+    animation: spin 0.65s linear infinite;
+    vertical-align: middle;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* ================= Success Message ================= */
+/* =========== Success Message =========== */
 .successMessage {
     text-align: center;
-    padding: 40px 20px;
-    position: relative;
-    z-index: 2;
+    padding: 48px 24px;
 }
 
 .successIcon {
-    font-size: 56px;
+    font-size: 52px;
     margin-bottom: 16px;
-    animation: bounce 0.6s ease;
+    display: block;
+    animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-@keyframes bounce {
-    0% { transform: scale(0); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+@keyframes successPop {
+    0%   { transform: scale(0) rotate(-20deg); }
+    100% { transform: scale(1) rotate(0deg); }
 }
 
 .successMessage h3 {
-    font-size: 24px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ff4d4d, #ffffff 50%, #4d7cff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
 }
 
 .successMessage p {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.55);
     line-height: 1.5;
 }
 
-/* ================= Responsive — Tablet ================= */
+/* =========== Responsive — mobile =========== */
 @media (max-width: 640px) {
+    .overlay {
+        padding: 10px;
+        align-items: flex-end;
+    }
+
     .modal {
-        padding: 24px 16px 20px;
-        border-radius: 20px;
-        max-height: 95vh; /* Increased from 88vh to give more space for scrolling */
-        width: calc(100% - 24px); /* Full width minus small margin */
+        max-width: 100%;
+        max-height: 94svh;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .modalContentWrap {
+        padding: 24px 20px 24px;
     }
 
     .title {
-        font-size: 24px;
+        font-size: 22px;
     }
 
-    .subtitle {
-        font-size: 12px;
+    .memberGrid {
+        grid-template-columns: 1fr; /* single column on mobile */
     }
 
-    .yearBadge {
-        font-size: 10px;
-        padding: 5px 12px;
+    .divider {
+        margin: 0 -20px 20px;
     }
 
-    .memberCard {
-        padding: 12px 10px 10px;
-        border-radius: 12px;
-    }
-    
-    .memberFields {
-        gap: 8px; /* Reduce gap between inputs on mobile */
+    .tabBar {
+        gap: 4px;
+        padding: 4px;
     }
 
-    .input,
-    .select {
-        padding: 10px 12px;
-        font-size: 16px; /* 16px prevents iOS zoom on focus */
-        border-radius: 10px;
-    }
-
-    .submitBtn {
-        padding: 12px;
-        font-size: 15px;
-        margin-top: 4px;
-    }
-    .closeBtn {
-        top: 18px;
-        right: 18px;
-        width: 32px;
-        height: 32px;
-        font-size: 18px;
+    .tab {
+        font-size: 11px;
+        padding: 7px 6px;
     }
 }
 
-/* ================= Responsive — Small Mobile ================= */
 @media (max-width: 400px) {
     .overlay {
-        padding: 8px;
+        padding: 0;
     }
 
     .modal {
-        padding: 20px 12px 16px;
-        border-radius: 16px;
-        width: 100%;
-        max-height: 98vh;
+        max-height: 96svh;
+        border-radius: 16px 16px 0 0;
     }
 
-    .title {
-        font-size: 20px;
-    }
-
-    .membersHeader {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    .glowOrb1,
-    .glowOrb2,
-    .glowOrb3 {
-        display: none;
+    .memberCard {
+        padding: 14px 12px;
     }
 }

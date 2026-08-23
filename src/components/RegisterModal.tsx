@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { getSupabase } from "@/lib/supabaseClient";
 import styles from "./RegisterModal.module.css";
 
@@ -48,92 +48,27 @@ const emptyMember = (): MemberData => ({
     phone: "",
 });
 
-const GlassFilter = () => (
-    <svg style={{ display: "none" }}>
-        <filter
-            id="glass-distortion"
-            x="0%"
-            y="0%"
-            width="100%"
-            height="100%"
-            filterUnits="objectBoundingBox"
-        >
-            <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.001 0.005"
-                numOctaves="1"
-                seed="17"
-                result="turbulence"
-            >
-                <animate attributeName="baseFrequency" values="0.001 0.005;0.005 0.001;0.001 0.005" dur="20s" repeatCount="indefinite" />
-            </feTurbulence>
-            <feComponentTransfer in="turbulence" result="mapped">
-                <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
-                <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
-                <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
-            </feComponentTransfer>
-            <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
-            <feSpecularLighting
-                in="softMap"
-                surfaceScale="5"
-                specularConstant="1"
-                specularExponent="100"
-                lightingColor="white"
-                result="specLight"
-            >
-                <fePointLight id="glass-point-light" x="-200" y="-200" z="300" />
-            </feSpecularLighting>
-            <feComposite
-                in="specLight"
-                operator="arithmetic"
-                k1="0"
-                k2="1"
-                k3="1"
-                k4="0"
-                result="litImage"
-            />
-            <feDisplacementMap
-                in="SourceGraphic"
-                in2="softMap"
-                scale="200"
-                xChannelSelector="R"
-                yChannelSelector="G"
-            />
-        </filter>
-    </svg>
-);
-
 export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterModalProps) {
     const [teamName, setTeamName] = useState("");
     const [members, setMembers] = useState<MemberData[]>([emptyMember(), emptyMember()]);
+    const [activeMember, setActiveMember] = useState(0);
     const [submitting, setSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
-    const overlayRef = useRef<HTMLDivElement>(null);
-
-    // Track mouse for Glass Filter
-    useEffect(() => {
-        if (!isOpen) return;
-        const handleMouseMove = (e: MouseEvent) => {
-            const light = document.getElementById("glass-point-light");
-            if (light) {
-                light.setAttribute("x", String(e.clientX));
-                light.setAttribute("y", String(e.clientY));
-            }
-        };
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [isOpen]);
 
     const addMember = () => {
         if (members.length < 4) {
-            setMembers([...members, emptyMember()]);
+            const newMembers = [...members, emptyMember()];
+            setMembers(newMembers);
+            setActiveMember(newMembers.length - 1);
         }
     };
 
     const removeMember = (index: number) => {
         if (members.length > 2) {
-            setMembers(members.filter((_, i) => i !== index));
+            const updated = members.filter((_, i) => i !== index);
+            setMembers(updated);
+            setActiveMember(Math.min(activeMember, updated.length - 1));
         }
     };
 
@@ -147,22 +82,16 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
         if (!teamName.trim()) return "Team name is required";
         for (let i = 0; i < members.length; i++) {
             const m = members[i];
-            if (!m.fullName.trim()) return `Member ${i + 1}: Name is required`;
+            if (!m.fullName.trim()) return `Member ${i + 1}: Full name is required`;
             if (!m.raNumber.trim()) return `Member ${i + 1}: RA Number is required`;
             const raUpper = m.raNumber.toUpperCase().trim();
             if (!/^RA26[A-Z0-9]{11}$/.test(raUpper))
-                return `Member ${i + 1}: RA Number must start with RA26 and be exactly 15 characters long (e.g. RA2611003010XXX)`;
+                return `Member ${i + 1}: RA Number must start with RA26 and be exactly 15 characters (e.g. RA2611003010XXX)`;
             if (!m.department) return `Member ${i + 1}: Department is required`;
-            
-            // SRM Email Validation
             if (!m.email.trim() || !/^[a-zA-Z0-9._%+-]+@srmist\.edu\.in$/.test(m.email.trim().toLowerCase()))
                 return `Member ${i + 1}: SRM Email must end with @srmist.edu.in`;
-                
-            // Personal Email Validation
             if (!m.personalEmail.trim() || !/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(m.personalEmail.trim().toLowerCase()))
                 return `Member ${i + 1}: Personal Email must end with @gmail.com`;
-                
-            // Phone Validation
             if (!m.phone.trim() || !/^\d{10}$/.test(m.phone.trim()))
                 return `Member ${i + 1}: Valid 10-digit phone number is required`;
         }
@@ -228,11 +157,11 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
             }
 
             setSubmitStatus("success");
-            // Reset form after success
             if (onSuccess) onSuccess();
             setTimeout(() => {
                 setTeamName("");
                 setMembers([emptyMember(), emptyMember()]);
+                setActiveMember(0);
                 setSubmitStatus("idle");
                 onClose();
             }, 3000);
@@ -244,73 +173,36 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
         }
     };
 
-    const handleOverlayClick = (e: React.MouseEvent) => {
-        if (e.target === overlayRef.current) {
-            onClose();
-        }
-    };
-
     const resetAndClose = () => {
         setSubmitStatus("idle");
         setErrorMessage("");
         onClose();
     };
 
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) resetAndClose();
+    };
+
+    const member = members[activeMember];
+
     return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
                     className={styles.overlay}
-                    ref={overlayRef}
                     onClick={handleOverlayClick}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25 }}
                 >
                     <motion.div
                         className={styles.modal}
-                        initial={{ opacity: 0, scale: 0.85, y: 60 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.85, y: 60 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 120,
-                            damping: 14,
-                        }}
+                        initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 40, scale: 0.97 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 26 }}
                     >
-                        <GlassFilter />
-                        
-                        {/* Glass Layers */}
-                        <div
-                            className="absolute inset-0 z-0 overflow-hidden"
-                            style={{
-                                backdropFilter: "blur(3px)",
-                                filter: "url(#glass-distortion)",
-                                isolation: "isolate",
-                                borderRadius: "inherit"
-                            }}
-                        />
-                        <div
-                            className="absolute inset-0 z-10"
-                            style={{ background: "rgba(255, 255, 255, 0.25)", borderRadius: "inherit" }}
-                        />
-                        <div
-                            className="absolute inset-0 z-20 overflow-hidden"
-                            style={{
-                                boxShadow:
-                                    "inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)",
-                                borderRadius: "inherit"
-                            }}
-                        />
-
-                        {/* Glass refraction glow effects */}
-                        <div className={styles.glowOrb1} style={{ zIndex: 25 }} />
-                        <div className={styles.glowOrb2} style={{ zIndex: 25 }} />
-                        <div className={styles.glowOrb3} style={{ zIndex: 25 }} />
-
-                        <div className={styles.modalContentWrap}>
-
                         {/* Close button */}
                         <button
                             className={styles.closeBtn}
@@ -320,177 +212,224 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                             ✕
                         </button>
 
-                        {/* Header */}
-                        <div className={styles.header}>
-                            <h2 className={styles.title}>Join the Quest</h2>
-                            <p className={styles.subtitle}>Register your team for Campus Quest 5.0</p>
-                            <div className={styles.yearBadge}>
-                                🕷️ Only 1st Year Students Can Apply
-                            </div>
-                        </div>
+                        <div className={styles.modalContentWrap}>
 
-                        {/* Success State */}
-                        {submitStatus === "success" ? (
-                            <motion.div
-                                className={styles.successMessage}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ type: "spring", stiffness: 120 }}
-                            >
-                                <div className={styles.successIcon}>🎉</div>
-                                <h3>Registration Successful!</h3>
-                                <p>Your team has been registered. See you at Campus Quest 5.0!</p>
-                            </motion.div>
-                        ) : (
-                            /* Form */
-                            <form className={styles.form} onSubmit={handleSubmit}>
-                                {/* Error message */}
-                                {errorMessage && (
-                                    <motion.div
-                                        className={styles.errorBox}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                    >
-                                        ⚠️ {errorMessage}
-                                    </motion.div>
-                                )}
-
-                                {/* Team Name */}
-                                <div className={styles.fieldGroup}>
-                                    <label className={styles.label}>Team Name</label>
-                                    <input
-                                        type="text"
-                                        className={styles.input}
-                                        placeholder="Enter your team name"
-                                        value={teamName}
-                                        onChange={(e) => setTeamName(e.target.value)}
-                                        required
-                                    />
+                            {/* ── Header ── */}
+                            <div className={styles.header}>
+                                <h2 className={styles.title}>Team Registration</h2>
+                                <p className={styles.subtitle}>Campus Quest 5.0</p>
+                                <div className={styles.yearBadge}>
+                                    🕷️ 1st Year Students Only
                                 </div>
+                            </div>
 
-                                {/* Members */}
-                                <div className={styles.membersSection}>
-                                    <div className={styles.membersHeader}>
-                                        <span className={styles.membersTitle}>
-                                            Team Members ({members.length}/4)
-                                        </span>
-                                        {members.length < 4 && (
-                                            <button
-                                                type="button"
-                                                className={styles.addMemberBtn}
-                                                onClick={addMember}
+                            <div className={styles.divider} />
+
+                            {/* ── Success State ── */}
+                            {submitStatus === "success" ? (
+                                <motion.div
+                                    className={styles.successMessage}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ type: "spring", stiffness: 200 }}
+                                >
+                                    <span className={styles.successIcon}>🎉</span>
+                                    <h3>Registration Successful!</h3>
+                                    <p>Your team has been registered. See you at Campus Quest 5.0!</p>
+                                </motion.div>
+                            ) : (
+                                /* ── Form ── */
+                                <form className={styles.form} onSubmit={handleSubmit} noValidate>
+
+                                    {/* Error message */}
+                                    <AnimatePresence>
+                                        {errorMessage && (
+                                            <motion.div
+                                                className={styles.errorBox}
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: "auto" }}
+                                                exit={{ opacity: 0, height: 0 }}
                                             >
-                                                + Add Member
-                                            </button>
+                                                ⚠️ {errorMessage}
+                                            </motion.div>
                                         )}
+                                    </AnimatePresence>
+
+                                    {/* Team Name */}
+                                    <div className={styles.fieldGroup}>
+                                        <label className={styles.label}>Team Name</label>
+                                        <input
+                                            type="text"
+                                            className={styles.input}
+                                            placeholder="e.g. Spider Squad"
+                                            value={teamName}
+                                            onChange={(e) => setTeamName(e.target.value)}
+                                            required
+                                        />
                                     </div>
 
-                                    {members.map((member, index) => (
-                                        <motion.div
-                                            key={index}
-                                            className={styles.memberCard}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: index * 0.05 }}
-                                        >
-                                            <div className={styles.memberCardHeader}>
-                                                <span className={styles.memberNumber}>
-                                                    Member {index + 1}
-                                                </span>
-                                                {members.length > 2 && (
-                                                    <button
-                                                        type="button"
-                                                        className={styles.removeMemberBtn}
-                                                        onClick={() => removeMember(index)}
-                                                    >
-                                                        ✕
-                                                    </button>
-                                                )}
-                                            </div>
+                                    {/* ── Member Section ── */}
+                                    <div className={styles.membersSection}>
 
-                                            <div className={styles.memberFields}>
-                                                <input
-                                                    type="text"
-                                                    className={styles.input}
-                                                    placeholder="Full Name"
-                                                    value={member.fullName}
-                                                    onChange={(e) =>
-                                                        updateMember(index, "fullName", e.target.value)
-                                                    }
-                                                    required
-                                                />
-                                                <input
-                                                    type="text"
-                                                    className={styles.input}
-                                                    placeholder="RA Number (e.g. RA2611003010XXX)"
-                                                    value={member.raNumber}
-                                                    onChange={(e) =>
-                                                        updateMember(index, "raNumber", e.target.value)
-                                                    }
-                                                    required
-                                                />
-                                                <select
-                                                    className={styles.select}
-                                                    value={member.department}
-                                                    onChange={(e) =>
-                                                        updateMember(index, "department", e.target.value)
-                                                    }
-                                                    required
+                                        {/* Tab bar */}
+                                        <div className={styles.tabBar} role="tablist">
+                                            {members.map((_, i) => (
+                                                <button
+                                                    key={i}
+                                                    type="button"
+                                                    role="tab"
+                                                    aria-selected={activeMember === i}
+                                                    className={`${styles.tab} ${activeMember === i ? styles.tabActive : ""}`}
+                                                    onClick={() => setActiveMember(i)}
                                                 >
-                                                    <option value="" disabled>
-                                                        Select Department
-                                                    </option>
-                                                    {DEPARTMENTS.map((dept) => (
-                                                        <option key={dept} value={dept}>
-                                                            {dept}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <input
-                                                    type="email"
-                                                    placeholder="SRM Email (@srmist.edu.in)"
-                                                    className={styles.input}
-                                                    value={member.email}
-                                                    onChange={(e) => updateMember(index, "email", e.target.value)}
-                                                    required
-                                                />
-                                                <input
-                                                    type="email"
-                                                    placeholder="Personal Email (@gmail.com)"
-                                                    className={styles.input}
-                                                    value={member.personalEmail}
-                                                    onChange={(e) => updateMember(index, "personalEmail", e.target.value)}
-                                                    required
-                                                />
-                                                <input
-                                                    type="tel"
-                                                    className={styles.input}
-                                                    placeholder="Phone Number (10 digits)"
-                                                    value={member.phone}
-                                                    onChange={(e) =>
-                                                        updateMember(index, "phone", e.target.value.replace(/\D/g, "").slice(0, 10))
-                                                    }
-                                                    required
-                                                />
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </div>
+                                                    Member {i + 1}
+                                                </button>
+                                            ))}
+                                            {members.length < 4 && (
+                                                <button
+                                                    type="button"
+                                                    className={styles.addTabBtn}
+                                                    onClick={addMember}
+                                                    title="Add member"
+                                                    aria-label="Add member"
+                                                >
+                                                    +
+                                                </button>
+                                            )}
+                                        </div>
 
-                                {/* Submit */}
-                                <button
-                                    type="submit"
-                                    className={styles.submitBtn}
-                                    disabled={submitting}
-                                >
-                                    {submitting ? (
-                                        <span className={styles.spinner} />
-                                    ) : (
-                                        "🕸️ Register Team"
-                                    )}
-                                </button>
-                            </form>
-                        )}
+                                        {/* Active member card */}
+                                        <AnimatePresence mode="wait">
+                                            <motion.div
+                                                key={activeMember}
+                                                className={styles.memberCard}
+                                                initial={{ opacity: 0, x: 12 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: -12 }}
+                                                transition={{ duration: 0.18 }}
+                                            >
+                                                <div className={styles.memberCardHeader}>
+                                                    <span className={styles.memberNumber}>
+                                                        Member {activeMember + 1}
+                                                    </span>
+                                                    {members.length > 2 && (
+                                                        <button
+                                                            type="button"
+                                                            className={styles.removeMemberBtn}
+                                                            onClick={() => removeMember(activeMember)}
+                                                            aria-label={`Remove member ${activeMember + 1}`}
+                                                        >
+                                                            ✕
+                                                        </button>
+                                                    )}
+                                                </div>
+
+                                                {/* Two-column grid */}
+                                                <div className={styles.memberGrid}>
+
+                                                    {/* Full Name */}
+                                                    <div className={styles.fieldGroup}>
+                                                        <label className={styles.label}>Full Name</label>
+                                                        <input
+                                                            type="text"
+                                                            className={styles.input}
+                                                            placeholder="Full Name"
+                                                            value={member.fullName}
+                                                            onChange={(e) => updateMember(activeMember, "fullName", e.target.value)}
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* RA Number */}
+                                                    <div className={styles.fieldGroup}>
+                                                        <label className={styles.label}>RA Number</label>
+                                                        <input
+                                                            type="text"
+                                                            className={styles.input}
+                                                            placeholder="RA2611003010XXX"
+                                                            value={member.raNumber}
+                                                            onChange={(e) => updateMember(activeMember, "raNumber", e.target.value)}
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* Department — full width */}
+                                                    <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                                                        <label className={styles.label}>Department</label>
+                                                        <select
+                                                            className={styles.select}
+                                                            value={member.department}
+                                                            onChange={(e) => updateMember(activeMember, "department", e.target.value)}
+                                                            required
+                                                        >
+                                                            <option value="" disabled>Select Department</option>
+                                                            {DEPARTMENTS.map((dept) => (
+                                                                <option key={dept} value={dept}>{dept}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    {/* SRM Email */}
+                                                    <div className={styles.fieldGroup}>
+                                                        <label className={styles.label}>SRM Email</label>
+                                                        <input
+                                                            type="email"
+                                                            className={styles.input}
+                                                            placeholder="@srmist.edu.in"
+                                                            value={member.email}
+                                                            onChange={(e) => updateMember(activeMember, "email", e.target.value)}
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* Gmail */}
+                                                    <div className={styles.fieldGroup}>
+                                                        <label className={styles.label}>Personal Email</label>
+                                                        <input
+                                                            type="email"
+                                                            className={styles.input}
+                                                            placeholder="@gmail.com"
+                                                            value={member.personalEmail}
+                                                            onChange={(e) => updateMember(activeMember, "personalEmail", e.target.value)}
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                    {/* Phone — full width */}
+                                                    <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                                                        <label className={styles.label}>Phone Number</label>
+                                                        <input
+                                                            type="tel"
+                                                            className={styles.input}
+                                                            placeholder="10-digit number"
+                                                            value={member.phone}
+                                                            onChange={(e) =>
+                                                                updateMember(activeMember, "phone", e.target.value.replace(/\D/g, "").slice(0, 10))
+                                                            }
+                                                            required
+                                                        />
+                                                    </div>
+
+                                                </div>
+                                            </motion.div>
+                                        </AnimatePresence>
+
+                                    </div>
+
+                                    {/* Submit */}
+                                    <button
+                                        type="submit"
+                                        className={styles.submitBtn}
+                                        disabled={submitting}
+                                    >
+                                        {submitting
+                                            ? <span className={styles.spinner} />
+                                            : "🕸️ Register Team"
+                                        }
+                                    </button>
+
+                                </form>
+                            )}
                         </div>
                     </motion.div>
                 </motion.div>
