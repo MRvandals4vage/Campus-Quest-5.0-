@@ -2,35 +2,52 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RegisterModal from "./RegisterModal";
 import styles from "./Hero.module.css";
 
 const SCROLL_THRESHOLD = 80;
 
+const NAV_LINKS = [
+  { label: "Home",       href: "/" },
+  { label: "About",      href: "/#about" },
+  { label: "Timeline",   href: "/#timeline" },
+  { label: "Sponsors",   href: "/#sponsors" },
+  { label: "Past Events",href: "/#pastevents" },
+];
+
 export default function Navbar() {
   const [showRegister, setShowRegister] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
+
+  // Ref-based hover-intent timer so moving from pill → panel doesn't flicker
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
       const past = window.scrollY > SCROLL_THRESHOLD;
       setScrolled(past);
       if (past) setMenuOpen(false);
+      if (!past) setDropOpen(false);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const openDrop  = () => { clearTimeout(closeTimer.current!); setDropOpen(true);  };
+  const closeDrop = () => { closeTimer.current = setTimeout(() => setDropOpen(false), 120); };
+
   return (
     <>
-      {/* ── Full navbar — always in the DOM, hidden via opacity/pointer-events ── */}
-      {/* Keep <nav> as a plain element so CSS transform: translateX(-50%) is never
-          overwritten by Framer Motion. Only the inner content div is animated. */}
+      {/* ════════════════════════════════════════
+          Full horizontal navbar — fades on scroll
+          (kept in DOM so layout doesn't jump)
+          ════════════════════════════════════════ */}
       <nav
         className={styles.navbar}
         style={{
@@ -50,21 +67,11 @@ export default function Navbar() {
           </div>
 
           <ul className={styles.navLinks}>
-            <li className={styles.navItem}>
-              <Link href="/" className={styles.navLink}>Home</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/#about" className={styles.navLink}>About</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/#timeline" className={styles.navLink}>Timeline</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/#sponsors" className={styles.navLink}>Sponsors</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/#pastevents" className={styles.navLink}>Past Events</Link>
-            </li>
+            {NAV_LINKS.map((l) => (
+              <li key={l.label} className={styles.navItem}>
+                <Link href={l.href} className={styles.navLink}>{l.label}</Link>
+              </li>
+            ))}
           </ul>
 
           {!isRegistered && (
@@ -87,27 +94,73 @@ export default function Navbar() {
         </motion.div>
       </nav>
 
-      {/* ── Collapsed logo pill (shown after scroll) ── */}
+      {/* ════════════════════════════════════════
+          Collapsed state — desktop only
+          Logo pill (top-left) + vertical dropdown
+          ════════════════════════════════════════ */}
       <AnimatePresence>
         {scrolled && (
-          <motion.button
-            key="collapsed-logo"
-            className={styles.collapsedLogo}
-            aria-label="Scroll to top"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            initial={{ opacity: 0, scale: 0.7, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.7, y: -20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 24 }}
-          >
-            <Image
-              src="/images/10x.png"
-              alt="10x Logo"
-              width={56}
-              height={40}
-              className={styles.collapsedLogoImg}
-            />
-          </motion.button>
+          <>
+            {/* Logo pill */}
+            <motion.div
+              key="collapsed-logo"
+              className={styles.collapsedLogo}
+              onMouseEnter={openDrop}
+              onMouseLeave={closeDrop}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 26 }}
+            >
+              <Image
+                src="/images/10x.png"
+                alt="10x Logo"
+                width={52}
+                height={38}
+                className={styles.collapsedLogoImg}
+              />
+            </motion.div>
+
+            {/* Vertical dropdown panel */}
+            <AnimatePresence>
+              {dropOpen && (
+                <motion.div
+                  key="vertical-nav"
+                  className={styles.verticalNav}
+                  onMouseEnter={openDrop}
+                  onMouseLeave={closeDrop}
+                  initial={{ opacity: 0, y: -10, scaleY: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                  exit={{ opacity: 0, y: -10, scaleY: 0.9 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                  style={{ transformOrigin: "top left" }}
+                >
+                  {NAV_LINKS.map((l) => (
+                    <Link
+                      key={l.label}
+                      href={l.href}
+                      className={styles.verticalNavLink}
+                      onClick={() => setDropOpen(false)}
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+
+                  {!isRegistered && (
+                    <>
+                      <div className={styles.verticalNavDivider} />
+                      <button
+                        className={styles.verticalNavRegister}
+                        onClick={() => { setDropOpen(false); setShowRegister(true); }}
+                      >
+                        REGISTER
+                      </button>
+                    </>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
         )}
       </AnimatePresence>
 
@@ -117,7 +170,7 @@ export default function Navbar() {
         onSuccess={() => setIsRegistered(true)}
       />
 
-      {/* Mobile dropdown — only when full nav is visible */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {menuOpen && !scrolled && (
           <motion.div
@@ -128,11 +181,11 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <ul className={styles.mobileMenuLinks}>
-              <li><Link href="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-              <li><Link href="/#about" onClick={() => setMenuOpen(false)}>About</Link></li>
-              <li><Link href="/#timeline" onClick={() => setMenuOpen(false)}>Timeline</Link></li>
-              <li><Link href="/#sponsors" onClick={() => setMenuOpen(false)}>Sponsors</Link></li>
-              <li><Link href="/#pastevents" onClick={() => setMenuOpen(false)}>Past Events</Link></li>
+              {NAV_LINKS.map((l) => (
+                <li key={l.label}>
+                  <Link href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</Link>
+                </li>
+              ))}
             </ul>
           </motion.div>
         )}

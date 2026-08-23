@@ -28,42 +28,121 @@
     z-index: 9999;
 }
 
-/* ── Collapsed logo pill (shown after scroll) ── */
+/* ── Collapsed logo pill (shown after scroll, desktop only) ── */
 .collapsedLogo {
     position: fixed;
     top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 28px;          /* left-anchored on desktop */
+    transform: none;     /* no centering transform */
     z-index: 9999;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 8px 18px;
+    padding: 7px 16px;
     border-radius: 999px;
 
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
 
     cursor: pointer;
     transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .collapsedLogo:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.14);
 }
 
 .collapsedLogoImg {
-    width: 56px;
+    width: 52px;
     height: auto;
     display: block;
 }
 
+/* ── Vertical hover dropdown ── */
+.verticalNav {
+    position: fixed;
+    top: 74px;          /* sits just below the logo pill */
+    left: 28px;
+    z-index: 9998;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+
+    min-width: 180px;
+    padding: 12px 10px;
+    border-radius: 18px;
+
+    background: rgba(10, 10, 16, 0.65);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.05) inset,
+        0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.verticalNavLink {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+
+    transition: background 0.18s ease, color 0.18s ease;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    text-align: left;
+}
+
+.verticalNavLink:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.verticalNavDivider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 6px 8px;
+}
+
+.verticalNavRegister {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    padding: 10px 16px;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.92);
+    color: #000;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: inherit;
+    letter-spacing: 0.8px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.verticalNavRegister:hover {
+    background: #ffffff;
+    transform: translateY(-1px);
+}
 
 
 .navLinks {
