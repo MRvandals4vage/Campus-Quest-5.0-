@@ -100,7 +100,7 @@ export default function Timeline() {
 
   const CANVAS_H = 4800;
   const BB_Y = 3017;
-  const BB_X = 571;
+  const BB_X = 556;
 
   /* ── Resize handler ── */
   useEffect(() => {
