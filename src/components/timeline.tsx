@@ -7,23 +7,23 @@ import Image from "next/image";
    Mobile phase data
 ───────────────────────────────────────────────────────── */
 const MOBILE_PHASES = [
-  { id: 1, building: "/assets/timeline/Building 1 spiderman.png", card: "/assets/timeline/Reg Starts.png",   alt: "Registration Starts",  cardSide: "right" as const },
-  { id: 2, building: "/assets/timeline/Building2 spiderman.png",  card: "/assets/timeline/Reg Closes.png",  alt: "Registration Closes",  cardSide: "left"  as const },
-  { id: 3, building: "/assets/timeline/Building3 spiderman.png",  card: "/assets/timeline/Shortlisting.png",alt: "Shortlisting",          cardSide: "right" as const },
-  { id: 4, building: "/assets/timeline/Building4 spiderman.png",  card: "/assets/timeline/Event Day.png",   alt: "Event Day",             cardSide: "left"  as const },
+  { id: 1, building: "/assets/timeline/Building 1 spiderman.png", card: "/assets/timeline/Reg Starts.png", alt: "Registration Starts", cardSide: "right" as const },
+  { id: 2, building: "/assets/timeline/Building2 spiderman.png", card: "/assets/timeline/Reg Closes.png", alt: "Registration Closes", cardSide: "left" as const },
+  { id: 3, building: "/assets/timeline/Building3 spiderman.png", card: "/assets/timeline/Shortlisting.png", alt: "Shortlisting", cardSide: "right" as const },
+  { id: 4, building: "/assets/timeline/Building4 spiderman.png", card: "/assets/timeline/Event Day.png", alt: "Event Day", cardSide: "left" as const },
 ];
 
 /* ─────────────────────────────────────────────────────────
    Spider-Man waypoints on the 1920-px canvas
 ───────────────────────────────────────────────────────── */
 const WAYPOINTS = [
-  { x: 320,  y: 530,  sitting: true,  scaleX:  1, rotate:  5 },
-  { x: 960,  y: 980,  sitting: false, scaleX:  1, rotate:  0 },
-  { x: 1330, y: 1250, sitting: true,  scaleX: -1, rotate: -5 },
-  { x: 920,  y: 1490, sitting: false, scaleX: -1, rotate:  0 },
-  { x: 350,  y: 1850, sitting: true,  scaleX:  1, rotate:  5 },
-  { x: 960,  y: 2040, sitting: false, scaleX:  1, rotate:  0 },
-  { x: 1360, y: 2340, sitting: true,  scaleX: -1, rotate:  0 },
+  { x: 320, y: 530, sitting: true, scaleX: 1, rotate: 5 },
+  { x: 960, y: 980, sitting: false, scaleX: 1, rotate: 0 },
+  { x: 1330, y: 1250, sitting: true, scaleX: -1, rotate: -5 },
+  { x: 920, y: 1490, sitting: false, scaleX: -1, rotate: 0 },
+  { x: 350, y: 1850, sitting: true, scaleX: 1, rotate: 5 },
+  { x: 960, y: 2040, sitting: false, scaleX: 1, rotate: 0 },
+  { x: 1360, y: 2340, sitting: true, scaleX: -1, rotate: 0 },
 ];
 
 function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
@@ -82,16 +82,16 @@ function MobilePhase({ building, card, alt, cardSide, delay = 0 }: {
 export default function Timeline() {
   // Start as undefined so we never render the wrong layout server-side
   const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
-  const [scale,    setScale]    = useState(1);
-  const [vpH,      setVpH]      = useState(900);
+  const [scale, setScale] = useState(1);
+  const [vpH, setVpH] = useState(900);
 
-  const sectionRef   = useRef<HTMLElement>(null);
-  const zoomRef      = useRef<HTMLDivElement>(null);
-  const fadeRef      = useRef<HTMLDivElement>(null);
-  const dialogRef    = useRef<HTMLDivElement>(null);
-  const spideyRef    = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const zoomRef = useRef<HTMLDivElement>(null);
+  const fadeRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const spideyRef = useRef<HTMLDivElement>(null);
   const spideyImgRef = useRef<HTMLImageElement>(null);
-  const gsapCtxRef   = useRef<{ revert: () => void } | null>(null);
+  const gsapCtxRef = useRef<{ revert: () => void } | null>(null);
 
   // Store scale in a ref so GSAP callbacks always see the latest value
   // without needing to be recreated
@@ -100,7 +100,7 @@ export default function Timeline() {
 
   const CANVAS_H = 4800;
   const BB_Y = 3017;
-  const BB_X = 556;
+  const BB_X = 579;
 
   /* ── Resize handler ── */
   useEffect(() => {
@@ -136,30 +136,30 @@ export default function Timeline() {
         gsap.registerPlugin(ScrollTrigger);
 
         const section = sectionRef.current;
-        const zoom    = zoomRef.current;
-        const fade    = fadeRef.current;
-        const dialog  = dialogRef.current;
+        const zoom = zoomRef.current;
+        const fade = fadeRef.current;
+        const dialog = dialogRef.current;
         if (!section || !zoom || !fade || !dialog) return;
 
         const ctx = gsap.context(() => {
           const compute = () => {
-            const sf  = window.innerWidth / 1920;
-            const vh  = window.innerHeight;
-            const vw  = window.innerWidth;
+            const sf = window.innerWidth / 1920;
+            const vh = window.innerHeight;
+            const vw = window.innerWidth;
             const startScroll = BB_Y * sf - vh / 2;
             const targetScale = Math.max(1920 / 890, (vh / vw) * (1920 / 474));
             return { sf, vh, vw, startScroll, targetScale };
           };
 
-          gsap.set(zoom,   { scale: 1, x: 0 });
-          gsap.set(fade,   { opacity: 1 });
+          gsap.set(zoom, { scale: 1, x: 0 });
+          gsap.set(fade, { opacity: 1 });
           gsap.set(dialog, { opacity: 0, scale: 0.65, y: 40 });
 
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
-              start:  () => `top+=${compute().startScroll}px top`,
-              end:    () => `top+=${compute().startScroll + 1000}px top`,
+              start: () => `top+=${compute().startScroll}px top`,
+              end: () => `top+=${compute().startScroll + 1000}px top`,
               // scrub: true (immediate) instead of scrub:1 (lagged) — eliminates the freeze
               scrub: true,
               pin: true,
@@ -172,12 +172,12 @@ export default function Timeline() {
 
           tl.to(zoom, {
             scale: () => compute().targetScale,
-            x:     () => window.innerWidth / 2 - BB_X * (window.innerWidth / 1920),
+            x: () => window.innerWidth / 2 - BB_X * (window.innerWidth / 1920),
             ease: "power2.inOut",
             duration: 1,
           }, 0);
 
-          tl.to(fade,   { opacity: 0, ease: "power2.inOut", duration: 0.6 }, 0);
+          tl.to(fade, { opacity: 0, ease: "power2.inOut", duration: 0.6 }, 0);
           tl.to(dialog, { opacity: 1, scale: 1, y: 0, ease: "back.out(1.5)", duration: 0.35 }, 0.7);
         }, section);
 
@@ -187,17 +187,17 @@ export default function Timeline() {
     );
 
     return () => { cleanupFn?.(); };
-  // Only re-run when mobile breakpoint changes — NOT when scale changes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Only re-run when mobile breakpoint changes — NOT when scale changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   /* ── Spider-Man path scroll (desktop only) ── */
   const handleScroll = useCallback(() => {
     if (isMobile || !sectionRef.current) return;
-    const rect    = sectionRef.current.getBoundingClientRect();
+    const rect = sectionRef.current.getBoundingClientRect();
     const scrolled = Math.max(0, -rect.top);
     const sf = scaleRef.current || 1;
-    const canvasY  = scrolled / sf + 300;
+    const canvasY = scrolled / sf + 300;
 
     let wp1 = WAYPOINTS[0], wp2 = WAYPOINTS[0], t = 0;
 
@@ -215,28 +215,28 @@ export default function Timeline() {
       }
     }
 
-    const cx  = lerp(wp1.x, wp2.x, t);
-    const cy  = lerp(wp1.y, wp2.y, t);
+    const cx = lerp(wp1.x, wp2.x, t);
+    const cy = lerp(wp1.y, wp2.y, t);
     const rot = lerp(wp1.rotate, wp2.rotate, t);
     const jumping =
       !wp1.sitting && !wp2.sitting ? true :
-       wp1.sitting &&  wp2.sitting ? false :
-      !wp1.sitting ? t < 0.85 : t > 0.15;
+        wp1.sitting && wp2.sitting ? false :
+          !wp1.sitting ? t < 0.85 : t > 0.15;
     const sx = wp1.sitting ? (t > 0.8 ? wp2.scaleX : wp1.scaleX) : wp1.scaleX;
 
-    const el  = spideyRef.current;
+    const el = spideyRef.current;
     const img = spideyImgRef.current;
     if (!el || !img) return;
 
-    el.style.left      = `${cx}px`;
-    el.style.top       = `${cy}px`;
-    el.style.width     = jumping ? "305px" : "175px";
-    el.style.height    = jumping ? "335px" : "171px";
+    el.style.left = `${cx}px`;
+    el.style.top = `${cy}px`;
+    el.style.width = jumping ? "305px" : "175px";
+    el.style.height = jumping ? "335px" : "171px";
     el.style.transform = `rotate(${rot}deg) scaleX(${sx})`;
 
     const src = jumping ? "/assets/timeline/jumping Spiderman.png" : "/assets/timeline/Sitting Spiderman.png";
     if (!img.src.endsWith(src)) img.src = src;
-  // handleScroll only needs isMobile — scale is read from ref
+    // handleScroll only needs isMobile — scale is read from ref
   }, [isMobile]);
 
   useEffect(() => {
@@ -331,47 +331,65 @@ export default function Timeline() {
 
               {/* Phase 1 */}
               <img src="/assets/timeline/building1.png" alt="Building 1"
-                style={{ position:"absolute", top:500, left:-580, width:1350, height:"auto",
-                  objectFit:"contain", zIndex:10, pointerEvents:"none", opacity:0.9 }} />
+                style={{
+                  position: "absolute", top: 500, left: -580, width: 1350, height: "auto",
+                  objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
+                }} />
               <img src="/assets/timeline/Reg Starts.png" alt="Registration Starts"
-                style={{ position:"absolute", top:530, left:900, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none",
-                  filter:"drop-shadow(4px 6px 12px rgba(0,0,0,0.85))" }} />
+                style={{
+                  position: "absolute", top: 530, left: 900, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
+                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
+                }} />
 
               {/* Phase 2 */}
               <img src="/assets/timeline/building2.png" alt="Building 2"
-                style={{ position:"absolute", top:1150, right:-450, width:1450, height:"auto",
-                  objectFit:"contain", zIndex:10, pointerEvents:"none",
-                  transform:"scaleX(-1)" }} />
+                style={{
+                  position: "absolute", top: 1150, right: -450, width: 1450, height: "auto",
+                  objectFit: "contain", zIndex: 10, pointerEvents: "none",
+                  transform: "scaleX(-1)"
+                }} />
               <img src="/assets/timeline/Reg Closes.png" alt="Registration Closes"
-                style={{ position:"absolute", top:1200, left:300, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none",
-                  filter:"drop-shadow(4px 6px 12px rgba(0,0,0,0.85))" }} />
+                style={{
+                  position: "absolute", top: 1200, left: 300, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
+                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
+                }} />
 
               {/* Phase 3 */}
               <img src="/assets/timeline/building3.png" alt="Building 3"
-                style={{ position:"absolute", top:1850, left:-550, width:1450, height:"auto",
-                  objectFit:"contain", zIndex:10, pointerEvents:"none", opacity:0.9 }} />
+                style={{
+                  position: "absolute", top: 1850, left: -550, width: 1450, height: "auto",
+                  objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
+                }} />
               <img src="/assets/timeline/Shortlisting.png" alt="Shortlisting"
-                style={{ position:"absolute", top:1900, left:1165, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none",
-                  filter:"drop-shadow(4px 6px 12px rgba(0,0,0,0.85))" }} />
+                style={{
+                  position: "absolute", top: 1900, left: 1165, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
+                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
+                }} />
 
               {/* Phase 4 */}
               <img src="/assets/timeline/building4.png" alt="Building 4"
-                style={{ position:"absolute", top:2250, right:-480, width:1750, height:"auto",
-                  objectFit:"contain", zIndex:10, pointerEvents:"none",
-                  transform:"scaleX(-1)" }} />
+                style={{
+                  position: "absolute", top: 2250, right: -480, width: 1750, height: "auto",
+                  objectFit: "contain", zIndex: 10, pointerEvents: "none",
+                  transform: "scaleX(-1)"
+                }} />
               <img src="/assets/timeline/Event Day.png" alt="Event Day"
-                style={{ position:"absolute", top:2300, left:150, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none",
-                  filter:"drop-shadow(4px 6px 12px rgba(0,0,0,0.85))" }} />
+                style={{
+                  position: "absolute", top: 2300, left: 150, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
+                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
+                }} />
 
               {/* Building 5 (billboard bg) */}
               <img src="/assets/timeline/building5.png" alt="Building 5"
-                style={{ position:"absolute", top:3000, left:-1000, width:2600, height:"auto",
-                  objectFit:"contain", zIndex:10, pointerEvents:"none",
-                  transform:"scaleX(-1)" }} />
+                style={{
+                  position: "absolute", top: 3000, left: -1000, width: 2600, height: "auto",
+                  objectFit: "contain", zIndex: 10, pointerEvents: "none",
+                  transform: "scaleX(-1)"
+                }} />
 
               {/* Animated Spider-Man */}
               <div
@@ -379,7 +397,7 @@ export default function Timeline() {
                 style={{
                   position: "absolute",
                   left: `${WAYPOINTS[0].x}px`,
-                  top:  `${WAYPOINTS[0].y}px`,
+                  top: `${WAYPOINTS[0].y}px`,
                   width: "175px",
                   height: "171px",
                   zIndex: 40,
