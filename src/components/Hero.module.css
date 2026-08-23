@@ -28,6 +28,44 @@
     z-index: 9999;
 }
 
+/* ── Collapsed logo pill (shown after scroll) ── */
+.collapsedLogo {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 18px;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.collapsedLogo:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+}
+
+.collapsedLogoImg {
+    width: 56px;
+    height: auto;
+    display: block;
+}
+
+
+
 .navLinks {
     display: flex;
     align-items: center;
