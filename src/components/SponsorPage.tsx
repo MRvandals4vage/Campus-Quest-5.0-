@@ -337,7 +337,7 @@ export default function Sponsors() {
         {/* ── MOBILE VIEW ── */}
         <div className="md:hidden relative w-[calc(100%-32px)] max-w-[280px] mx-auto flex items-center justify-center">
           <button onClick={() => setMobileIdx((prev) => (prev - 1 + 3) % 3)} className="absolute -left-8 top-1/2 -translate-y-1/2 z-30 active:scale-90 transition-transform">
-            <Image src="/assets/Sponsors/arrow-left.png" alt="Prev" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" style={{ width: 'auto' }} />
+            <Image src="/assets/Sponsors/arrow-right.png" alt="Prev" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" style={{ width: 'auto', transform: 'scaleX(-1)' }} />
           </button>
 
           <div className="w-full px-14 flex justify-center items-center">
@@ -388,7 +388,7 @@ export default function Sponsors() {
           </div>
 
           <button onClick={() => setMobileIdx((prev) => (prev + 1) % 3)} className="absolute -right-8 top-1/2 -translate-y-1/2 z-30 active:scale-90 transition-transform">
-            <Image src="/assets/Sponsors/arrow-right.png" alt="Next" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" style={{ width: 'auto' }} />
+            <Image src="/assets/Sponsors/arrow-left.png" alt="Next" width={40} height={40} className="w-10 h-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" style={{ width: 'auto', transform: 'scaleX(-1)' }} />
           </button>
         </div>
       </div>
