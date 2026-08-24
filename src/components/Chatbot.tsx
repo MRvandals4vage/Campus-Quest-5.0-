@@ -39,7 +39,7 @@ export default function Chatbot() {
         setIsLoading(true);
 
         try {
-            const res = await fetch("https://web-production-d0b819.up.railway.app/chat", {
+            const res = await fetch("/api/chat", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

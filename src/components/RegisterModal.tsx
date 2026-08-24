@@ -164,7 +164,7 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                 setActiveMember(0);
                 setSubmitStatus("idle");
                 onClose();
-            }, 3000);
+            }, 1500);
         } catch (err) {
             setSubmitStatus("error");
             setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
@@ -233,9 +233,7 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ type: "spring", stiffness: 200 }}
                                 >
-                                    <span className={styles.successIcon}>🎉</span>
-                                    <h3>Registration Successful!</h3>
-                                    <p>Your team has been registered. See you at Campus Quest 5.0!</p>
+                                    <h3>Registration successful</h3>
                                 </motion.div>
                             ) : (
                                 /* ── Form ── */
