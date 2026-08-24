@@ -33,7 +33,6 @@
     position: fixed;
     top: 18px;
     left: 28px;          /* left-anchored on desktop */
-    transform: none;     /* no centering transform */
     z-index: 9999;
 
     display: flex;

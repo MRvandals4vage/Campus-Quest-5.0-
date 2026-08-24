@@ -163,6 +163,7 @@ export default function Timeline() {
               // scrub: true (immediate) instead of scrub:1 (lagged) — eliminates the freeze
               scrub: true,
               pin: true,
+              anticipatePin: 1,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
                 gsap.set(dialog, { pointerEvents: self.progress > 0.8 ? "auto" : "none" });
@@ -313,7 +314,7 @@ export default function Timeline() {
                   position: "absolute", top: -37, left: -11,
                   width: 1942, height: CANVAS_H,
                   objectFit: "cover", opacity: 0.65,
-                  filter: "blur(6px)", pointerEvents: "none", zIndex: 0,
+                  pointerEvents: "none", zIndex: 0,
                 }}
               />
 
@@ -324,7 +325,6 @@ export default function Timeline() {
                 style={{
                   position: "absolute", top: 96, left: 432,
                   width: 1056, height: 170, objectFit: "contain",
-                  filter: "drop-shadow(6px 8px 4px rgba(86,85,85,0.48))",
                   pointerEvents: "none", zIndex: 30,
                 }}
               />
@@ -336,11 +336,8 @@ export default function Timeline() {
                   objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
                 }} />
               <img src="/assets/timeline/Reg Starts.png" alt="Registration Starts"
-                style={{
-                  position: "absolute", top: 530, left: 900, width: 700, height: "auto",
-                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
-                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
-                }} />
+                style={{ position:"absolute", top:530, left:900, width:700, height:"auto",
+                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
 
               {/* Phase 2 */}
               <img src="/assets/timeline/building2.png" alt="Building 2"
@@ -350,11 +347,8 @@ export default function Timeline() {
                   transform: "scaleX(-1)"
                 }} />
               <img src="/assets/timeline/Reg Closes.png" alt="Registration Closes"
-                style={{
-                  position: "absolute", top: 1200, left: 300, width: 700, height: "auto",
-                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
-                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
-                }} />
+                style={{ position:"absolute", top:1200, left:300, width:700, height:"auto",
+                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
 
               {/* Phase 3 */}
               <img src="/assets/timeline/building3.png" alt="Building 3"
@@ -363,11 +357,8 @@ export default function Timeline() {
                   objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
                 }} />
               <img src="/assets/timeline/Shortlisting.png" alt="Shortlisting"
-                style={{
-                  position: "absolute", top: 1900, left: 1165, width: 700, height: "auto",
-                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
-                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
-                }} />
+                style={{ position:"absolute", top:1900, left:1165, width:700, height:"auto",
+                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
 
               {/* Phase 4 */}
               <img src="/assets/timeline/building4.png" alt="Building 4"
@@ -377,11 +368,8 @@ export default function Timeline() {
                   transform: "scaleX(-1)"
                 }} />
               <img src="/assets/timeline/Event Day.png" alt="Event Day"
-                style={{
-                  position: "absolute", top: 2300, left: 150, width: 700, height: "auto",
-                  objectFit: "contain", zIndex: 30, pointerEvents: "none",
-                  filter: "drop-shadow(4px 6px 12px rgba(0,0,0,0.85))"
-                }} />
+                style={{ position:"absolute", top:2300, left:150, width:700, height:"auto",
+                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
 
               {/* Building 5 (billboard bg) */}
               <img src="/assets/timeline/building5.png" alt="Building 5"
@@ -411,7 +399,6 @@ export default function Timeline() {
                   alt="Spider-Man"
                   style={{
                     width: "100%", height: "100%", objectFit: "contain",
-                    filter: "drop-shadow(0 0 35px rgba(230,36,41,1))",
                   }}
                 />
               </div>
@@ -429,8 +416,7 @@ export default function Timeline() {
               <img src="/assets/timeline/Billboard.png" alt="Billboard"
                 style={{
                   position: "absolute", inset: 0,
-                  width: "100%", height: "100%", objectFit: "contain",
-                  filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.9))", zIndex: 10,
+                  width: "100%", height: "100%", objectFit: "contain", zIndex: 10,
                 }}
               />
               <div
@@ -484,7 +470,6 @@ export default function Timeline() {
               alt="Prize Pool Dialogue"
               style={{
                 width: "100%", height: "auto", objectFit: "contain",
-                filter: "drop-shadow(0 15px 45px rgba(0,0,0,0.85))",
               }}
             />
           </div>

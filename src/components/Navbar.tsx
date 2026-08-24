@@ -29,14 +29,21 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      const past = window.scrollY > SCROLL_THRESHOLD;
+      // Only collapse on desktop
+      const isDesktop = window.innerWidth > 1100;
+      const past = window.scrollY > SCROLL_THRESHOLD && isDesktop;
+      
       setScrolled(past);
       if (past) setMenuOpen(false);
       if (!past) setDropOpen(false);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const openDrop  = () => { clearTimeout(closeTimer.current!); setDropOpen(true);  };
