@@ -24,6 +24,20 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes("#")) {
+      e.preventDefault();
+      const targetId = href.split("#")[1];
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (href === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   // Ref-based hover-intent timer so moving from pill → panel doesn't flicker
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -76,7 +90,7 @@ export default function Navbar() {
           <ul className={styles.navLinks}>
             {NAV_LINKS.map((l) => (
               <li key={l.label} className={styles.navItem}>
-                <Link href={l.href} className={styles.navLink}>{l.label}</Link>
+                <Link href={l.href} onClick={(e) => handleScroll(e, l.href)} className={styles.navLink}>{l.label}</Link>
               </li>
             ))}
           </ul>
@@ -147,7 +161,7 @@ export default function Navbar() {
                       key={l.label}
                       href={l.href}
                       className={styles.verticalNavLink}
-                      onClick={() => setDropOpen(false)}
+                      onClick={(e) => { setDropOpen(false); handleScroll(e, l.href); }}
                     >
                       {l.label}
                     </Link>
@@ -190,7 +204,7 @@ export default function Navbar() {
             <ul className={styles.mobileMenuLinks}>
               {NAV_LINKS.map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</Link>
+                  <Link href={l.href} onClick={(e) => { setMenuOpen(false); handleScroll(e, l.href); }}>{l.label}</Link>
                 </li>
               ))}
             </ul>

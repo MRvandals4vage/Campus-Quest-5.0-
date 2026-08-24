@@ -11,6 +11,20 @@ export default function Footer() {
   const [showRegister, setShowRegister] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (href === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "#about" },
@@ -43,6 +57,7 @@ export default function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
                 className="hover:text-red-500 transition-colors duration-300 decoration-2 underline-offset-4 hover:underline"
               >
                 {link.name}
