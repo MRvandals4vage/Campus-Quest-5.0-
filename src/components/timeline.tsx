@@ -338,8 +338,10 @@ export default function Timeline() {
                   objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
                 }} />
               <img src="/assets/timeline/Reg Starts.png" alt="Registration Starts"
-                style={{ position:"absolute", top:530, left:900, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
+                style={{
+                  position: "absolute", top: 530, left: 900, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none"
+                }} />
 
               {/* Phase 2 */}
               <img src="/assets/timeline/building2.png" alt="Building 2"
@@ -349,8 +351,10 @@ export default function Timeline() {
                   transform: "scaleX(-1)"
                 }} />
               <img src="/assets/timeline/Reg Closes.png" alt="Registration Closes"
-                style={{ position:"absolute", top:1200, left:300, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
+                style={{
+                  position: "absolute", top: 1200, left: 300, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none"
+                }} />
 
               {/* Phase 3 */}
               <img src="/assets/timeline/building3.png" alt="Building 3"
@@ -359,8 +363,10 @@ export default function Timeline() {
                   objectFit: "contain", zIndex: 10, pointerEvents: "none", opacity: 0.9
                 }} />
               <img src="/assets/timeline/Shortlisting.png" alt="Shortlisting"
-                style={{ position:"absolute", top:1900, left:1165, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
+                style={{
+                  position: "absolute", top: 1900, left: 1165, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none"
+                }} />
 
               {/* Phase 4 */}
               <img src="/assets/timeline/building4.png" alt="Building 4"
@@ -370,8 +376,10 @@ export default function Timeline() {
                   transform: "scaleX(-1)"
                 }} />
               <img src="/assets/timeline/Event Day.png" alt="Event Day"
-                style={{ position:"absolute", top:2300, left:150, width:700, height:"auto",
-                  objectFit:"contain", zIndex:30, pointerEvents:"none" }} />
+                style={{
+                  position: "absolute", top: 2300, left: 150, width: 700, height: "auto",
+                  objectFit: "contain", zIndex: 30, pointerEvents: "none"
+                }} />
 
               {/* Building 5 (billboard bg) */}
               <img src="/assets/timeline/building5.png" alt="Building 5"
