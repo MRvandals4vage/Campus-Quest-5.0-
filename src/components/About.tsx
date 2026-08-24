@@ -166,7 +166,7 @@ export default function About() {
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
         {/* TOP GROUP: heading + spider-man */}
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full relative">
           <img
             src="/assests/about/About heading.png"
             alt="About"
@@ -176,7 +176,8 @@ export default function About() {
           <img
             src="/assests/about/Spiderman.png"
             alt="Spider-Man"
-            className="w-[22vw] max-w-[90px] h-auto mt-3 animate-spiderman-swing z-20"
+            className="absolute w-[20vw] max-w-[85px] h-auto animate-spiderman-swing z-20"
+            style={{ top: '150px', right: '31%', transformOrigin: 'top center' }}
           />
         </div>
 

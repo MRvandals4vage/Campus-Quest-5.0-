@@ -758,7 +758,7 @@
     /* ================= 5.0 ================= */
 
     .versionContainer {
-        bottom: 33.5%;
+        bottom: 44%;
     }
 
     .versionImage {
@@ -772,11 +772,8 @@
 
     .mobileRegister {
         display: flex;
-
         position: absolute;
-
-        bottom: 21%;
-
+        bottom: 33%;
         left: 50%;
 
         transform: translateX(-50%);
@@ -792,8 +789,8 @@
     /* ================= Hanging Spider ================= */
 
     .hangingSpider {
-        top: 73.5%;
-        right: 46%;
+        top: 70%;
+        right: 43%;
     }
 
     .hangingSpiderImage {
@@ -863,7 +860,7 @@
     /* ================= 5.0 ================= */
 
     .versionContainer {
-        bottom: 39.2%;
+        bottom: 50%;
     }
 
     .versionImage {
@@ -876,7 +873,7 @@
     /* ================= Register ================= */
 
     .mobileRegister {
-        bottom: 32.7%;
+        bottom: 40%;
 
         padding: clamp(8px, 2.6vw, 9px) clamp(22px, 7.27vw, 25px);
 
@@ -887,8 +884,8 @@
     /* ================= Hanging Spider ================= */
 
     .hangingSpider {
-        top: 67.5%;
-        right: 45%;
+        top: 64%;
+        right: 43%;
     }
 
     .hangingSpiderImage {

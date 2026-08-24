@@ -29,8 +29,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      // Only collapse on desktop
-      const isDesktop = window.innerWidth > 1100;
+      // Only collapse on non-mobile (tablets & laptops)
+      const isDesktop = window.innerWidth > 600;
       const past = window.scrollY > SCROLL_THRESHOLD && isDesktop;
       
       setScrolled(past);

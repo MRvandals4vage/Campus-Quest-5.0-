@@ -50,52 +50,41 @@ export default function Hero() {
                     damping: 10
                 }}
             >
-                <Image
-                    src="/images/Campus Quest.png"
-                    alt="Campus Quest"
-                    width={1050}
-                    height={250}
-                    priority
-                    className={styles.titleImage}
-                />
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "100%", maxWidth: "1500px", transform: "translateY(-22%)" }}>
+                    <Image
+                        src="/images/campus.png"
+                        alt="Campus"
+                        width={900}
+                        height={400}
+                        priority
+                        style={{
+                            width: "63%",
+                            height: "auto",
+                            objectFit: "contain",
+                            transform: "translateY(-15%)",
+                            zIndex: 10
+                        }}
+                    />
+                    <Image
+                        src="/images/Quest.png"
+                        alt="Quest"
+                        width={900}
+                        height={400}
+                        priority
+                        style={{
+                            width: "63%",
+                            height: "auto",
+                            objectFit: "contain",
+                            marginLeft: "-34%",
+                            transform: "translateY(18%)",
+                            zIndex: 20
+                        }}
+                    />
+                </div>
             </motion.div>
 
 
-            {/* ================= Main Spider ================= */}
-
-            <motion.div
-                className={styles.spiderContainer}
-                initial={{
-                    scale: 0.2,
-                    y: 120,
-                    rotate: -8,
-                    opacity: 0
-                }}
-                animate={{
-                    scale: 1,
-                    y: 0,
-                    rotate: 0,
-                    opacity: 1
-                }}
-                transition={{
-                    delay: 1.5,
-                    type: "spring",
-                    stiffness: 90,
-                    damping: 8,
-                    mass: 0.8
-                }}
-            >
-                <Image
-                    src="/images/spiderman.png"
-                    alt="Spider-Man"
-                    width={350}
-                    height={650}
-                    priority
-                    className={styles.spiderImage}
-                />
-            </motion.div>
-
-            {/* ================= Version ================= */}
+            {/* ================= 5.0 ================= */}
 
             <motion.div
                 className={styles.versionContainer}
@@ -121,6 +110,7 @@ export default function Hero() {
                     height={140}
                     priority
                     className={styles.versionImage}
+                    style={{ width: "32%", maxWidth: "480px", transform: "translateY(30px)" }}
                 />
             </motion.div>
 

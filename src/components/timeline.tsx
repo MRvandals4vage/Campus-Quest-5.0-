@@ -160,8 +160,8 @@ export default function Timeline() {
               trigger: section,
               start: () => `top+=${compute().startScroll}px top`,
               end: () => `top+=${compute().startScroll + 1000}px top`,
-              // scrub: true (immediate) instead of scrub:1 (lagged) — eliminates the freeze
-              scrub: true,
+              // scrub: 1 (smooth interpolation) prevents GPU stutter on laptops
+              scrub: 1,
               pin: true,
               anticipatePin: 1,
               invalidateOnRefresh: true,
@@ -291,6 +291,7 @@ export default function Timeline() {
             transformOrigin: `${BB_X * scale}px ${BB_Y * scale}px`,
             // Promote to GPU layer for smoother scaling
             willChange: "transform",
+            WebkitTransform: "translateZ(0)",
           }}
         >
           {/* 1920 × 4800 canvas */}
@@ -299,9 +300,10 @@ export default function Timeline() {
               position: "relative",
               width: "1920px",
               height: `${CANVAS_H}px`,
-              transform: `scale(${scale})`,
+              transform: `scale(${scale}) translateZ(0)`,
               transformOrigin: "top left",
               overflow: "hidden",
+              willChange: "transform",
             }}
           >
             <div ref={fadeRef} style={{ position: "absolute", inset: 0 }}>
