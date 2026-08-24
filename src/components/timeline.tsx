@@ -453,7 +453,7 @@ export default function Timeline() {
       {isMobile && (
         <div style={{ width: "100%", background: "#000", margin: 0, padding: 0, display: "block" }}>
           <Image
-            src="/assets/timeline/Timeline.svg"
+            src="/assets/timeline/Timeline-mobile.png"
             alt="Timeline"
             width={430}
             height={1205}
