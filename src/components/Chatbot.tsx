@@ -124,6 +124,7 @@ export default function Chatbot() {
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyDown={handleKeyDown}
+                                    maxLength={500}
                                 />
                                 <button className={styles.sendBtn} onClick={handleSend}>
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
