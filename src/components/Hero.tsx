@@ -93,7 +93,7 @@ export default function Hero() {
                     opacity: 0
                 }}
                 animate={{
-                    scale: 1,
+                    scale: 0.9,
                     opacity: 1
                 }}
                 transition={{
