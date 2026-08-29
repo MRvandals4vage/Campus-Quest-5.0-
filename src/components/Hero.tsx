@@ -3,7 +3,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import RegisterModal from "./RegisterModal";
-import Chatbot from "./Chatbot";
 const floatingAnimation = {
     y: [0, -12, 0],
     transition: {
@@ -93,7 +92,7 @@ export default function Hero() {
                     opacity: 0
                 }}
                 animate={{
-                    scale: 0.9,
+                    scale: 0.85,
                     opacity: 1
                 }}
                 transition={{
@@ -142,8 +141,6 @@ export default function Hero() {
                 onClose={() => setShowRegister(false)}
                 onSuccess={() => setIsRegistered(true)}
             />
-
-            <Chatbot />
         </section>
     );
 }

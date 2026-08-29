@@ -147,7 +147,13 @@ export default function Chatbot() {
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20, delay: 2.5 }}
                 >
-                    🕷️
+                    <Image
+                        src="/assets/Cursor/cursor.png"
+                        alt="Chatbot Icon"
+                        width={60}
+                        height={60}
+                        style={{ objectFit: "contain" }}
+                    />
                 </motion.button>
             )}
         </div>
