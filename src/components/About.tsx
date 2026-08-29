@@ -48,7 +48,7 @@ export default function About() {
           className="
             absolute
             left-[28.5%]
-            top-[17%]
+            top-[23.5%]
             w-[180px]
             h-auto
             z-20
