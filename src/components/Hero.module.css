@@ -7,7 +7,7 @@
 }
 
 .background {
-    object-fit: fill;
+    object-fit: cover;
     z-index: -2;
 }
 
@@ -222,18 +222,69 @@
     align-items: center;
 }
 
-.heroTitle {
+.contentWrapper {
     position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+}
 
-    top: 210px;
-
-    width: 100%;
-
+.heroTitle {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 100%;
     z-index: 10;
+    pointer-events: auto;
+}
+
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+    transform: translateY(-8%);
+}
+
+.campusImage {
+    width: 63%;
+    height: auto;
+    object-fit: contain;
+    transform: translateY(-15%);
+    z-index: 10;
+}
+
+.questImage {
+    width: 63%;
+    height: auto;
+    object-fit: contain;
+    margin-left: -34%;
+    transform: translateY(18%);
+    z-index: 20;
+}
+
+/* ── Large desktop clamp (prevents overflow at very wide screens) ── */
+@media (min-width: 1400px) {
+    .contentWrapper {
+        max-width: 1400px;
+    }
+    .campusImage {
+        width: 55%;
+    }
+    .questImage {
+        width: 55%;
+        margin-left: -28%;
+    }
 }
 
 .spiderContainer {
@@ -257,22 +308,19 @@
 }
 
 .versionContainer {
-    position: absolute;
-
-    bottom: 160px;
-
-    width: 100%;
-
     display: flex;
     justify-content: center;
-
+    align-items: center;
+    width: 100%;
+    margin-top: -40px;
     z-index: 35;
+    pointer-events: auto;
 }
 
 .versionImage {
-    width: 100%;
+    width: 22%;
+    max-width: 280px;
     height: auto;
-
     object-fit: contain;
 }
 
@@ -324,12 +372,6 @@
     object-fit: contain;
 }
 
-.versionImage {
-    width: 22%;
-    max-width: 320px;
-    height: auto;
-    object-fit: contain;
-}
 
 .menuButton {
     display: none;
@@ -376,6 +418,10 @@
    ========================================================= */
 
 @media (min-width: 601px) and (max-width: 1100px) {
+
+    .contentWrapper {
+        display: contents;
+    }
 
     .hero {
         height: 100svh;
@@ -522,7 +568,27 @@
     /* ================= Campus Quest ================= */
 
     .heroTitle {
+        position: absolute;
         top: 24.4%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .titleContainer {
+        width: 92%;
+        max-width: 720px;
+        transform: translateY(-6%);
+    }
+
+    .campusImage {
+        width: 68%;
+    }
+
+    .questImage {
+        width: 68%;
+        margin-left: -36%;
     }
 
     .titleImage {
@@ -548,7 +614,12 @@
     /* ================= 5.0 ================= */
 
     .versionContainer {
+        position: absolute;
         bottom: 30.25%;
+        width: 100%;
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
     }
 
     .versionImage {
@@ -594,6 +665,10 @@
 
 /* ================= MOBILE ================= */
 @media (max-width: 600px) {
+
+    .contentWrapper {
+        display: contents;
+    }
 
     /* ================= Mobile Menu ================= */
 
@@ -732,7 +807,27 @@
     /* ================= Campus Quest ================= */
 
     .heroTitle {
+        position: absolute;
         top: 31%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .titleContainer {
+        width: 96%;
+        max-width: 500px;
+        transform: translateY(-5%);
+    }
+
+    .campusImage {
+        width: 70%;
+    }
+
+    .questImage {
+        width: 70%;
+        margin-left: -37%;
     }
 
     .titleImage {
@@ -758,7 +853,12 @@
     /* ================= 5.0 ================= */
 
     .versionContainer {
+        position: absolute;
         bottom: 44%;
+        width: 100%;
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
     }
 
     .versionImage {
@@ -806,6 +906,10 @@
 
 @media (max-width: 400px) {
 
+    .contentWrapper {
+        display: contents;
+    }
+
     .hero {
         min-height: 620px;
     }
@@ -834,7 +938,27 @@
     /* ================= Campus Quest ================= */
 
     .heroTitle {
+        position: absolute;
         top: 29.5%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .titleContainer {
+        width: 96%;
+        max-width: 380px;
+        transform: translateY(-4%);
+    }
+
+    .campusImage {
+        width: 72%;
+    }
+
+    .questImage {
+        width: 72%;
+        margin-left: -38%;
     }
 
     .titleImage {
@@ -860,7 +984,12 @@
     /* ================= 5.0 ================= */
 
     .versionContainer {
+        position: absolute;
         bottom: 50%;
+        width: 100%;
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
     }
 
     .versionImage {

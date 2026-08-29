@@ -31,88 +31,74 @@ export default function Hero() {
             />
 
 
-            {/* ================= Hero Title ================= */}
+            {/* ================= Content Wrapper ================= */}
+            <div className={styles.contentWrapper}>
+                {/* ================= Hero Title ================= */}
+                <motion.div
+                    className={styles.heroTitle}
+                    initial={{
+                        opacity: 0,
+                        scale: 0.7
+                    }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1
+                    }}
+                    transition={{
+                        delay: 0.8,
+                        type: "spring",
+                        stiffness: 120,
+                        damping: 10
+                    }}
+                >
+                    <div className={styles.titleContainer}>
+                        <Image
+                            src="/images/campus.png"
+                            alt="Campus"
+                            width={900}
+                            height={400}
+                            priority
+                            className={styles.campusImage}
+                        />
+                        <Image
+                            src="/images/Quest.png"
+                            alt="Quest"
+                            width={900}
+                            height={400}
+                            priority
+                            className={styles.questImage}
+                        />
+                    </div>
+                </motion.div>
 
-            <motion.div
-                className={styles.heroTitle}
-                initial={{
-                    opacity: 0,
-                    scale: 0.7
-                }}
-                animate={{
-                    opacity: 1,
-                    scale: 1
-                }}
-                transition={{
-                    delay: 0.8,
-                    type: "spring",
-                    stiffness: 120,
-                    damping: 10
-                }}
-            >
-                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", width: "100%", maxWidth: "1500px", transform: "translateY(-22%)" }}>
+                {/* ================= 5.0 ================= */}
+                <motion.div
+                    className={styles.versionContainer}
+                    initial={{
+                        scale: 0,
+                        opacity: 0
+                    }}
+                    animate={{
+                        scale: 1,
+                        opacity: 1
+                    }}
+                    transition={{
+                        delay: 2.2,
+                        type: "spring",
+                        stiffness: 120,
+                        damping: 10
+                    }}
+                >
                     <Image
-                        src="/images/campus.png"
-                        alt="Campus"
-                        width={900}
-                        height={400}
+                        src="/images/5.0.png"
+                        alt="Campus Quest 5.0"
+                        width={320}
+                        height={140}
                         priority
-                        style={{
-                            width: "63%",
-                            height: "auto",
-                            objectFit: "contain",
-                            transform: "translateY(-15%)",
-                            zIndex: 10
-                        }}
+                        className={styles.versionImage}
                     />
-                    <Image
-                        src="/images/Quest.png"
-                        alt="Quest"
-                        width={900}
-                        height={400}
-                        priority
-                        style={{
-                            width: "63%",
-                            height: "auto",
-                            objectFit: "contain",
-                            marginLeft: "-34%",
-                            transform: "translateY(18%)",
-                            zIndex: 20
-                        }}
-                    />
-                </div>
-            </motion.div>
-
-
-            {/* ================= 5.0 ================= */}
-
-            <motion.div
-                className={styles.versionContainer}
-                initial={{
-                    scale: 0,
-                    opacity: 0
-                }}
-                animate={{
-                    scale: 1,
-                    opacity: 1
-                }}
-                transition={{
-                    delay: 2.2,
-                    type: "spring",
-                    stiffness: 120,
-                    damping: 10
-                }}
-            >
-                <Image
-                    src="/images/5.0.png"
-                    alt="Campus Quest 5.0"
-                    width={320}
-                    height={140}
-                    priority
-                    className={styles.versionImage}
-                    style={{ width: "32%", maxWidth: "480px", transform: "translateY(30px)" }}
-                />
-            </motion.div>
+                </motion.div>
+            </div>
 
             {!isRegistered && (
                 <button

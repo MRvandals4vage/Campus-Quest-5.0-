@@ -21,17 +21,14 @@ export default function About() {
           ============================================================ */}
       <div className="relative z-10 min-h-screen w-full max-sm:hidden">
 
-        {/* ================= ABOUT HEADING ================= */}
-        <img
-          src="/assests/about/About heading.png"
-          alt="About"
+        {/* ================= ABOUT HEADING & SPIDERMAN WRAPPER ================= */}
+        <div
           className="
             absolute
             left-[13%]
             top-[15%]
             w-[600px]
             max-w-[48vw]
-            h-auto
             z-20
 
             max-md:left-[7%]
@@ -39,26 +36,29 @@ export default function About() {
             max-md:w-[420px]
             max-md:max-w-[50vw]
           "
-        />
+        >
+          {/* ================= ABOUT HEADING ================= */}
+          <img
+            src="/assests/about/About heading.png"
+            alt="About"
+            className="w-full h-auto"
+          />
 
-        {/* ================= SPIDER-MAN ================= */}
-        <img
-          src="/assests/about/Spiderman.png"
-          alt="Spider-Man"
-          className="
-            absolute
-            left-[28.5%]
-            top-[17%]
-            w-[180px]
-            h-auto
-            z-20
-            animate-spiderman-swing
-
-            max-md:left-[27%]
-            max-md:top-[11%]
-            max-md:w-[110px]
-          "
-        />
+          {/* ================= SPIDER-MAN ================= */}
+          <img
+            src="/assests/about/Spiderman.png"
+            alt="Spider-Man"
+            className="
+              absolute
+              left-[37.2%]
+              top-[10%]
+              w-[30%]
+              h-auto
+              z-20
+              animate-spiderman-swing
+            "
+          />
+        </div>
 
         {/* ================= HELICOPTER ================= */}
         <img
@@ -67,9 +67,9 @@ export default function About() {
           className="
             absolute
             right-[8%]
-            top-[5%]
-            w-[550px]
-            max-w-[42vw]
+            top-[8%]
+            w-[450px]
+            max-w-[32vw]
             h-auto
             z-10
 
@@ -84,10 +84,10 @@ export default function About() {
         <div
           className="
             absolute
-            left-[5%]
-            top-[40%]
-            w-[56%]
-            max-w-[900px]
+            left-[8%]
+            top-[42%]
+            w-[52%]
+            max-w-[800px]
             text-center
             text-white
 
@@ -100,9 +100,10 @@ export default function About() {
         >
           <p
             className="
-              text-[28px]
+              text-[20px]
+              lg:text-[23px]
               font-normal
-              leading-[1.2]
+              leading-[1.4]
               tracking-normal
               text-white/80
 
@@ -120,10 +121,12 @@ export default function About() {
 
           <p
             className="
-              mt-[28px]
-              text-[26px]
+              mt-[20px]
+              lg:mt-[24px]
+              text-[16px]
+              lg:text-[18px]
               font-normal
-              leading-[1.2]
+              leading-[1.6]
               tracking-normal
               text-white/80
 
@@ -162,6 +165,7 @@ export default function About() {
           min-h-screen
           w-full
           px-6 py-10
+          pt-[80px]
         "
         style={{ fontFamily: "Montserrat, sans-serif" }}
       >
@@ -170,19 +174,18 @@ export default function About() {
           <img
             src="/assests/about/About heading.png"
             alt="About"
-            className="w-[80vw] max-w-[300px] h-auto z-20"
-            style={{ marginTop: '100px' }}
+            className="w-[78vw] max-w-[300px] h-auto z-20"
           />
           <img
             src="/assests/about/Spiderman.png"
             alt="Spider-Man"
-            className="absolute w-[20vw] max-w-[85px] h-auto animate-spiderman-swing z-20"
-            style={{ top: '150px', right: '31%', transformOrigin: 'top center' }}
+            className="absolute w-[22vw] max-w-[90px] h-auto animate-spiderman-swing z-20"
+            style={{ top: '40px', right: '30%', transformOrigin: 'top center' }}
           />
         </div>
 
         {/* MIDDLE GROUP: text */}
-        <div className="flex flex-col items-center w-full gap-4 px-1">
+        <div className="flex flex-col items-center w-full gap-4 px-1 mt-6">
           <p className="text-[17px] font-normal leading-[1.55] text-white/90 w-full">
             Gear up for an adrenaline-fueled journey into the Multiverse with{" "}
             <span className="font-extrabold text-red-500">Campus Quest 5.0!</span>
@@ -201,7 +204,7 @@ export default function About() {
         <img
           src="/assests/about/Helicopter.png"
           alt="Helicopter"
-          className="w-[70vw] max-w-[270px] h-auto z-10"
+          className="w-[70vw] max-w-[270px] h-auto z-10 mt-6"
         />
       </div>
 
