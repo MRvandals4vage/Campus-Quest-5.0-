@@ -48,7 +48,6 @@ export default function Navbar() {
       const past = window.scrollY > SCROLL_THRESHOLD && isDesktop;
       
       setScrolled(past);
-      if (past) setMenuOpen(false);
       if (!past) setDropOpen(false);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -72,8 +71,7 @@ export default function Navbar() {
       <nav
         className={styles.navbar}
         style={{
-          opacity: scrolled ? 0 : 1,
-          pointerEvents: scrolled ? "none" : "auto",
+          opacity: (scrolled && (typeof window !== 'undefined' ? window.innerWidth > 600 : true)) ? 0 : 1,
           transition: "opacity 0.3s ease",
         }}
       >
@@ -109,6 +107,12 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
+            style={{
+              pointerEvents: "auto",
+              opacity: 1,
+              position: "relative",
+              zIndex: 10000,
+            }}
           >
             {menuOpen ? "✕" : "☰"}
           </button>
@@ -193,13 +197,14 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       <AnimatePresence>
-        {menuOpen && !scrolled && (
+        {menuOpen && (
           <motion.div
             className={styles.mobileMenu}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
+            style={{ position: "fixed", top: "70px", zIndex: 9999 }}
           >
             <ul className={styles.mobileMenuLinks}>
               {NAV_LINKS.map((l) => (

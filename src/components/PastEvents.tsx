@@ -236,7 +236,7 @@ export default function PastEvents() {
 
         {/* Replaced Text with original PAST EVENTS image for consistency, but keeping text fallback just in case */}
         <div className={styles.title} style={{ transform: "translateX(-50%) scaleX(1)" }}>
-          <Image src="/assets/Past events/PAST EVENTS.png" alt="PAST EVENTS" width={1400} height={200} style={{ width: "clamp(400px, 95vw, 1000px)", height: "auto" }} />
+          <Image src="/assets/Past events/PAST EVENTS.png" alt="PAST EVENTS" width={1400} height={200} style={{ width: "clamp(450px, 98vw, 1250px)", height: "auto" }} />
         </div>
       </div>
 

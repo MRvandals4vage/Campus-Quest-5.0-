@@ -340,7 +340,7 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                                                         <input
                                                             type="text"
                                                             className={styles.input}
-                                                            placeholder="RA2611003010XXX"
+                                                            placeholder="RA26XXXXXXXXXXX"
                                                             value={member.raNumber}
                                                             onChange={(e) => updateMember(activeMember, "raNumber", e.target.value)}
                                                             required

@@ -290,8 +290,8 @@ export default function Sponsors() {
             <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
               <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
             </div>
-            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold md:text-3xl lg:text-4xl shadow-xl" style={{ background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
-              GOLD SPONSOR
+            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-center p-4 text-white text-2xl font-black tracking-widest uppercase md:text-3xl lg:text-4xl shadow-xl" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
+              TO BE REVEALED
             </div>
           </div>
 
@@ -309,8 +309,8 @@ export default function Sponsors() {
             <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
               <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
             </div>
-            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold md:text-3xl lg:text-4xl shadow-xl" style={{ background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
-              SILVER SPONSOR
+            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-center p-4 text-black text-2xl font-black tracking-widest uppercase md:text-3xl lg:text-4xl shadow-xl" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
+              TO BE REVEALED
             </div>
           </div>
 
@@ -327,8 +327,8 @@ export default function Sponsors() {
             <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
               <img src="/assets/Sponsors/Bronze glow.png" alt="Bronze Sponsor" style={cardCrop} />
             </div>
-            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold md:text-3xl lg:text-4xl shadow-xl" style={{ background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
-              BRONZE SPONSOR
+            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-center p-4 text-white text-2xl font-black tracking-widest uppercase md:text-3xl lg:text-4xl shadow-xl" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
+              TO BE REVEALED
             </div>
           </div>
 
@@ -357,8 +357,8 @@ export default function Sponsors() {
                 <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
                   <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
                 </div>
-                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
-                  GOLD SPONSOR
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-black tracking-widest uppercase shadow-xl text-center p-4" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
+                  TO BE REVEALED
                 </div>
               </div>
             )}
@@ -372,8 +372,8 @@ export default function Sponsors() {
                 <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
                   <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
                 </div>
-                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
-                  SILVER SPONSOR
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-black text-2xl font-black tracking-widest uppercase shadow-xl text-center p-4" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
+                  TO BE REVEALED
                 </div>
               </div>
             )}
@@ -387,8 +387,8 @@ export default function Sponsors() {
                 <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 90px 0 #C14E23' }}>
                   <img src="/assets/Sponsors/Bronze glow.png" alt="Bronze Sponsor" style={cardCrop} />
                 </div>
-                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-bold shadow-xl text-center" style={{ background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
-                  BRONZE SPONSOR
+                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-black tracking-widest uppercase shadow-xl text-center p-4" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #E2725B, #C14E23)', boxShadow: '0 0 90px 0 #C14E23' }}>
+                  TO BE REVEALED
                 </div>
               </div>
             )}

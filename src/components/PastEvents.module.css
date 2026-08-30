@@ -124,7 +124,7 @@
   font-weight: 600;
 
   /* Large, but not ridiculously tall */
-  font-size: clamp(28px, 8.5vw, 105px);
+  font-size: clamp(36px, 10vw, 130px);
 
   line-height: 0.9;
   letter-spacing: 0.001em;
