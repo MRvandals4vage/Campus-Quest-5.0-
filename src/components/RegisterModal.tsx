@@ -1,7 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { getSupabase } from "@/lib/supabaseClient";
 import styles from "./RegisterModal.module.css";
 
 interface MemberData {
@@ -36,7 +35,8 @@ const DEPARTMENTS = [
     "Automobile Engineering (AUTO)",
     "Biomedical Engineering (BME)",
     "Biotechnology (BIOTECH)",
-    "Mechatronics Engineering (MCT)"
+    "Mechatronics Engineering (MCT)",
+    "OTHER"
 ];
 
 const emptyMember = (): MemberData => ({
@@ -58,43 +58,59 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
 
     const addMember = () => {
         if (members.length < 4) {
-            const newMembers = [...members, emptyMember()];
-            setMembers(newMembers);
-            setActiveMember(newMembers.length - 1);
+            setMembers([...members, emptyMember()]);
+            setActiveMember(members.length);
         }
     };
 
     const removeMember = (index: number) => {
         if (members.length > 2) {
-            const updated = members.filter((_, i) => i !== index);
-            setMembers(updated);
-            setActiveMember(Math.min(activeMember, updated.length - 1));
+            const next = members.filter((_, i) => i !== index);
+            setMembers(next);
+            if (activeMember >= next.length) {
+                setActiveMember(next.length - 1);
+            }
         }
     };
 
     const updateMember = (index: number, field: keyof MemberData, value: string) => {
-        const updated = [...members];
-        updated[index] = { ...updated[index], [field]: value };
-        setMembers(updated);
+        const next = [...members];
+        next[index] = { ...next[index], [field]: value };
+        setMembers(next);
     };
 
     const validateForm = (): string | null => {
-        if (!teamName.trim()) return "Team name is required";
+        if (!teamName.trim()) return "Team Name is required.";
+        if (members.length < 2) return "A team must have at least 2 members.";
+
         for (let i = 0; i < members.length; i++) {
             const m = members[i];
-            if (!m.fullName.trim()) return `Member ${i + 1}: Full name is required`;
-            if (!m.raNumber.trim()) return `Member ${i + 1}: RA Number is required`;
-            const raUpper = m.raNumber.toUpperCase().trim();
-            if (!/^RA26[A-Z0-9]{11}$/.test(raUpper))
-                return `Member ${i + 1}: RA Number must start with RA26 and be exactly 15 characters (e.g. RA2611003010XXX)`;
-            if (!m.department) return `Member ${i + 1}: Department is required`;
-            if (!m.email.trim() || !/^[a-zA-Z0-9._%+-]+@srmist\.edu\.in$/.test(m.email.trim().toLowerCase()))
-                return `Member ${i + 1}: SRM Email must end with @srmist.edu.in`;
-            if (!m.personalEmail.trim() || !/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(m.personalEmail.trim().toLowerCase()))
-                return `Member ${i + 1}: Personal Email must end with @gmail.com`;
-            if (!m.phone.trim() || !/^\d{10}$/.test(m.phone.trim()))
-                return `Member ${i + 1}: Valid 10-digit phone number is required`;
+            const num = i + 1;
+            if (!m.fullName.trim()) return `Member ${num}: Full Name is required.`;
+            if (!m.raNumber.trim()) return `Member ${num}: RA Number is required.`;
+            if (!m.email.trim()) return `Member ${num}: SRM Email is required.`;
+            if (!m.email.toLowerCase().endsWith("@srmist.edu.in")) {
+                return `Member ${num}: SRM Email must end with @srmist.edu.in`;
+            }
+            if (!m.personalEmail.trim()) return `Member ${num}: Personal Email is required.`;
+            if (!m.phone.trim()) return `Member ${num}: Phone Number is required.`;
+            if (!/^\d{10}$/.test(m.phone.trim())) {
+                return `Member ${num}: Phone Number must be 10 digits.`;
+            }
         }
+
+        const raNumbers = members.map((m) => m.raNumber.trim().toUpperCase());
+        const uniqueRAs = new Set(raNumbers);
+        if (uniqueRAs.size !== raNumbers.length) {
+            return "Duplicate RA Numbers within the same team are not allowed.";
+        }
+
+        const emails = members.map((m) => m.email.trim().toLowerCase());
+        const uniqueEmails = new Set(emails);
+        if (uniqueEmails.size !== emails.length) {
+            return "Duplicate SRM Emails within the same team are not allowed.";
+        }
+
         return null;
     };
 
@@ -112,48 +128,28 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
         setSubmitting(true);
 
         try {
-            const supabase = getSupabase();
-            const teamId = crypto.randomUUID();
+            const res = await fetch("/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    teamName: teamName.trim(),
+                    members: members.map((m) => ({
+                        fullName: m.fullName.trim(),
+                        raNumber: m.raNumber.toUpperCase().trim(),
+                        department: m.department,
+                        email: m.email.trim().toLowerCase(),
+                        personalEmail: m.personalEmail.trim().toLowerCase(),
+                        phone: m.phone.trim(),
+                    })),
+                }),
+            });
 
-            // Insert team
-            const { error: teamError } = await supabase
-                .from("teams")
-                .insert({
-                    id: teamId,
-                    team_name: teamName.trim(),
-                    member_count: members.length,
-                });
+            const data = await res.json();
 
-            if (teamError) {
-                if (teamError.message.includes("duplicate") || teamError.message.includes("unique")) {
-                    throw new Error("Team name already taken! Choose a different name.");
-                }
-                throw new Error(teamError.message);
-            }
-
-            // Insert members
-            const memberRows = members.map((m) => ({
-                team_id: teamId,
-                team_name: teamName.trim(),
-                full_name: m.fullName.trim(),
-                ra_number: m.raNumber.toUpperCase().trim(),
-                department: m.department,
-                email: m.email.trim().toLowerCase(),
-                personal_email: m.personalEmail.trim().toLowerCase(),
-                phone: m.phone.trim(),
-            }));
-
-            const { error: membersError } = await supabase
-                .from("team_members")
-                .insert(memberRows);
-
-            if (membersError) {
-                // Cleanup: delete the team if members insert fails
-                await supabase.from("teams").delete().eq("id", teamId);
-                if (membersError.message.includes("duplicate") || membersError.message.includes("unique")) {
-                    throw new Error("One or more RA Numbers or emails are already registered!");
-                }
-                throw new Error(membersError.message);
+            if (!res.ok || data.error) {
+                throw new Error(data.error || "Registration failed. Please try again.");
             }
 
             setSubmitStatus("success");
