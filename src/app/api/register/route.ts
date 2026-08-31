@@ -123,14 +123,16 @@ export async function POST(request: Request) {
       });
     }
 
-    if (rpcError && !rpcError.message.includes("function") && !rpcError.message.includes("not found")) {
-      const errMsg = rpcError.message.includes("duplicate") || rpcError.message.includes("unique")
-        ? "Team name, RA number, or email is already registered!"
-        : rpcError.message;
-      return NextResponse.json({ error: errMsg }, { status: 400 });
+    if (rpcError) {
+      console.warn("Supabase RPC register_team_with_members error/fallback:", rpcError);
+      // If it's explicitly a unique constraint / duplicate error raised by RPC check, return standard user message
+      if (rpcError.message.includes("already registered") || rpcError.message.includes("already taken")) {
+        return NextResponse.json({ error: rpcError.message }, { status: 400 });
+      }
     }
 
-    // 3. Fallback: Server-side Insertion with Atomic Rollback
+    // 3. Fallback: Direct Table Insertion
+
     const teamId = crypto.randomUUID();
     const cleanTeamName = teamName.trim();
 

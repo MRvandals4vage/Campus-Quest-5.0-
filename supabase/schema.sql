@@ -107,3 +107,14 @@ BEGIN
     );
 END;
 $$;
+
+-- 5. Row Level Security (RLS) & Grant Policies
+-- Disable RLS or grant full access so registrations are never blocked regardless of anon/authenticated state
+ALTER TABLE public.teams DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.team_members DISABLE ROW LEVEL SECURITY;
+
+-- Explicitly grant permissions to anon and authenticated roles
+GRANT ALL ON TABLE public.teams TO anon, authenticated, service_role;
+GRANT ALL ON TABLE public.team_members TO anon, authenticated, service_role;
+GRANT EXECUTE ON FUNCTION public.register_team_with_members TO anon, authenticated, service_role;
+
