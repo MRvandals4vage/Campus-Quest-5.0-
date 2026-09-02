@@ -79,36 +79,82 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
         setMembers(next);
     };
 
+    const cleanPhone = (val: string) => {
+        let digits = val.replace(/\D/g, "");
+        if (digits.length === 12 && digits.startsWith("91")) {
+            digits = digits.slice(2);
+        } else if (digits.length === 11 && digits.startsWith("0")) {
+            digits = digits.slice(1);
+        }
+        return digits.slice(0, 10);
+    };
+
     const validateForm = (): string | null => {
-        if (!teamName.trim()) return "Team Name is required.";
-        if (members.length < 2) return "A team must have at least 2 members.";
+        const cleanTeamName = teamName.trim();
+        if (!cleanTeamName) return "Team Name is required.";
+        if (members.length < 2 || members.length > 4) return "A team must have between 2 and 4 members.";
+
+        const raNumbers = new Set<string>();
+        const emails = new Set<string>();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         for (let i = 0; i < members.length; i++) {
             const m = members[i];
             const num = i + 1;
-            if (!m.fullName.trim()) return `Member ${num}: Full Name is required.`;
-            if (!m.raNumber.trim()) return `Member ${num}: RA Number is required.`;
-            if (!m.email.trim()) return `Member ${num}: SRM Email is required.`;
-            if (!m.email.toLowerCase().endsWith("@srmist.edu.in")) {
+            const fullName = m.fullName.trim();
+            const raNumber = m.raNumber.trim().toUpperCase();
+            const department = m.department.trim();
+            const email = m.email.trim().toLowerCase();
+            const personalEmail = m.personalEmail.trim().toLowerCase();
+            const phone = m.phone.trim();
+
+            if (!fullName) {
+                setActiveMember(i);
+                return `Member ${num}: Full Name is required.`;
+            }
+            if (!raNumber) {
+                setActiveMember(i);
+                return `Member ${num}: RA Number is required.`;
+            }
+            if (!department) {
+                setActiveMember(i);
+                return `Member ${num}: Department is required.`;
+            }
+            if (!email) {
+                setActiveMember(i);
+                return `Member ${num}: SRM Email is required.`;
+            }
+            if (!email.endsWith("@srmist.edu.in")) {
+                setActiveMember(i);
                 return `Member ${num}: SRM Email must end with @srmist.edu.in`;
             }
-            if (!m.personalEmail.trim()) return `Member ${num}: Personal Email is required.`;
-            if (!m.phone.trim()) return `Member ${num}: Phone Number is required.`;
-            if (!/^\d{10}$/.test(m.phone.trim())) {
+            if (!personalEmail) {
+                setActiveMember(i);
+                return `Member ${num}: Personal Email is required.`;
+            }
+            if (!emailRegex.test(personalEmail)) {
+                setActiveMember(i);
+                return `Member ${num}: Invalid Personal Email format.`;
+            }
+            if (!phone) {
+                setActiveMember(i);
+                return `Member ${num}: Phone Number is required.`;
+            }
+            if (!/^\d{10}$/.test(phone)) {
+                setActiveMember(i);
                 return `Member ${num}: Phone Number must be 10 digits.`;
             }
-        }
 
-        const raNumbers = members.map((m) => m.raNumber.trim().toUpperCase());
-        const uniqueRAs = new Set(raNumbers);
-        if (uniqueRAs.size !== raNumbers.length) {
-            return "Duplicate RA Numbers within the same team are not allowed.";
-        }
-
-        const emails = members.map((m) => m.email.trim().toLowerCase());
-        const uniqueEmails = new Set(emails);
-        if (uniqueEmails.size !== emails.length) {
-            return "Duplicate SRM Emails within the same team are not allowed.";
+            if (raNumbers.has(raNumber)) {
+                setActiveMember(i);
+                return `Duplicate RA Number (${raNumber}) within the team.`;
+            }
+            if (emails.has(email)) {
+                setActiveMember(i);
+                return `Duplicate SRM Email (${email}) within the team.`;
+            }
+            raNumbers.add(raNumber);
+            emails.add(email);
         }
 
         return null;
@@ -138,15 +184,20 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                     members: members.map((m) => ({
                         fullName: m.fullName.trim(),
                         raNumber: m.raNumber.toUpperCase().trim(),
-                        department: m.department,
+                        department: m.department.trim(),
                         email: m.email.trim().toLowerCase(),
                         personalEmail: m.personalEmail.trim().toLowerCase(),
-                        phone: m.phone.trim(),
+                        phone: cleanPhone(m.phone),
                     })),
                 }),
             });
 
-            const data = await res.json();
+            let data;
+            try {
+                data = await res.json();
+            } catch {
+                throw new Error(`Server returned status ${res.status}. Please try again later.`);
+            }
 
             if (!res.ok || data.error) {
                 throw new Error(data.error || "Registration failed. Please try again.");
@@ -163,7 +214,19 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
             }, 1500);
         } catch (err) {
             setSubmitStatus("error");
-            setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
+            const msg = err instanceof Error ? err.message : "Something went wrong";
+            setErrorMessage(msg);
+
+            // Switch to the exact member tab if their RA Number or SRM Email caused the server error
+            for (let i = 0; i < members.length; i++) {
+                const m = members[i];
+                const ra = m.raNumber.trim().toUpperCase();
+                const em = m.email.trim().toLowerCase();
+                if ((ra && msg.toUpperCase().includes(ra)) || (em && msg.toLowerCase().includes(em))) {
+                    setActiveMember(i);
+                    break;
+                }
+            }
         } finally {
             setSubmitting(false);
         }
@@ -398,7 +461,7 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
                                                             placeholder="10-digit number"
                                                             value={member.phone}
                                                             onChange={(e) =>
-                                                                updateMember(activeMember, "phone", e.target.value.replace(/\D/g, "").slice(0, 10))
+                                                                updateMember(activeMember, "phone", cleanPhone(e.target.value))
                                                             }
                                                             required
                                                         />

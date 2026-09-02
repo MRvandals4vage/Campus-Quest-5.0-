@@ -7,7 +7,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 2. Teams Table
 CREATE TABLE IF NOT EXISTS public.teams (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     team_name TEXT NOT NULL UNIQUE,
     member_count INTEGER NOT NULL CHECK (member_count >= 2 AND member_count <= 4),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.teams (
 
 -- 3. Team Members Table
 CREATE TABLE IF NOT EXISTS public.team_members (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     team_id UUID NOT NULL REFERENCES public.teams(id) ON DELETE CASCADE,
     team_name TEXT NOT NULL,
     full_name TEXT NOT NULL,

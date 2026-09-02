@@ -99,11 +99,53 @@ export async function POST(request: Request) {
 
     const supabase = getSupabase();
 
+    // Pre-check existing duplicates for exact, clear user feedback
+    const cleanTeamName = teamName.trim();
+    const ras = members.map((m) => m.raNumber!.trim().toUpperCase());
+    const emails = members.map((m) => m.email!.trim().toLowerCase());
+
+    const { data: existingTeam } = await supabase
+      .from("teams")
+      .select("team_name")
+      .ilike("team_name", cleanTeamName)
+      .maybeSingle();
+
+    if (existingTeam) {
+      return NextResponse.json(
+        { error: `Team Name "${existingTeam.team_name}" is already taken! Please choose a different team name.` },
+        { status: 400 }
+      );
+    }
+
+    const { data: existingMembers } = await supabase
+      .from("team_members")
+      .select("ra_number, email")
+      .or(`ra_number.in.(${ras.map((r) => `"${r}"`).join(",")}),email.in.(${emails.map((e) => `"${e}"`).join(",")})`);
+
+    if (existingMembers && existingMembers.length > 0) {
+      for (const m of existingMembers) {
+        const raUpper = m.ra_number.toUpperCase();
+        if (ras.includes(raUpper)) {
+          return NextResponse.json(
+            { error: `RA Number (${raUpper}) is already registered!` },
+            { status: 400 }
+          );
+        }
+        const emailLower = m.email.toLowerCase();
+        if (emails.includes(emailLower)) {
+          return NextResponse.json(
+            { error: `SRM Email (${emailLower}) is already registered!` },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     // 2. Try Single Atomic Database Procedure (RPC)
     const { data: rpcData, error: rpcError } = await supabase.rpc(
       "register_team_with_members",
       {
-        p_team_name: teamName.trim(),
+        p_team_name: cleanTeamName,
         p_members: members.map((m) => ({
           fullName: m.fullName!.trim(),
           raNumber: m.raNumber!.trim().toUpperCase(),
@@ -125,16 +167,26 @@ export async function POST(request: Request) {
 
     if (rpcError) {
       console.warn("Supabase RPC register_team_with_members error/fallback:", rpcError);
-      // If it's explicitly a unique constraint / duplicate error raised by RPC check, return standard user message
-      if (rpcError.message.includes("already registered") || rpcError.message.includes("already taken")) {
-        return NextResponse.json({ error: rpcError.message }, { status: 400 });
+      const msg = rpcError.message || "";
+      const isDuplicate =
+        msg.includes("already registered") ||
+        msg.includes("already taken") ||
+        msg.includes("duplicate") ||
+        msg.includes("unique") ||
+        msg.includes("already exists");
+
+      if (isDuplicate) {
+        let userMsg = msg;
+        if (msg.includes("teams_team_name_key")) userMsg = `Team Name "${cleanTeamName}" is already taken!`;
+        else if (msg.includes("team_members_ra_number_key")) userMsg = "One of the submitted RA Numbers is already registered!";
+        else if (msg.includes("team_members_email_key")) userMsg = "One of the submitted SRM Emails is already registered!";
+        return NextResponse.json({ error: userMsg }, { status: 400 });
       }
     }
 
     // 3. Fallback: Direct Table Insertion
 
     const teamId = crypto.randomUUID();
-    const cleanTeamName = teamName.trim();
 
     const { error: teamError } = await supabase.from("teams").insert({
       id: teamId,
@@ -145,7 +197,7 @@ export async function POST(request: Request) {
     if (teamError) {
       const isDuplicate = teamError.message.includes("duplicate") || teamError.message.includes("unique");
       return NextResponse.json(
-        { error: isDuplicate ? "Team name already taken! Choose a different name." : teamError.message },
+        { error: isDuplicate ? `Team Name "${cleanTeamName}" is already taken!` : teamError.message },
         { status: 400 }
       );
     }
