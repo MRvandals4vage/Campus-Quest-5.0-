@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RegisterModal from "./RegisterModal";
+import ClosedPopup from "./ClosedPopup";
+import { useIsRegistrationClosed } from "@/lib/useIsRegistrationClosed";
 import styles from "./Hero.module.css";
 
 const SCROLL_THRESHOLD = 80;
@@ -19,7 +21,9 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [showRegister, setShowRegister] = useState(false);
+  const [showClosedPopup, setShowClosedPopup] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const isClosed = useIsRegistrationClosed();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
@@ -94,12 +98,22 @@ export default function Navbar() {
           </ul>
 
           {!isRegistered && (
-            <button
-              className={`${styles.registerBtn} ${styles.desktopRegister}`}
-              onClick={() => setShowRegister(true)}
-            >
-              REGISTER
-            </button>
+            isClosed ? (
+              <button
+                className={`${styles.registerBtn} ${styles.desktopRegister} ${styles.lockedBtn}`}
+                onClick={() => setShowClosedPopup(true)}
+                title="Registrations Closed"
+              >
+                <span className={styles.lockIconAnim}>🔒</span> CLOSED
+              </button>
+            ) : (
+              <button
+                className={`${styles.registerBtn} ${styles.desktopRegister}`}
+                onClick={() => setShowRegister(true)}
+              >
+                REGISTER
+              </button>
+            )
           )}
 
           <button
@@ -174,12 +188,22 @@ export default function Navbar() {
                   {!isRegistered && (
                     <>
                       <div className={styles.verticalNavDivider} />
-                      <button
-                        className={styles.verticalNavRegister}
-                        onClick={() => { setDropOpen(false); setShowRegister(true); }}
-                      >
-                        REGISTER
-                      </button>
+                      {isClosed ? (
+                        <button
+                          className={`${styles.verticalNavRegister} ${styles.verticalNavLocked}`}
+                          onClick={() => { setDropOpen(false); setShowClosedPopup(true); }}
+                          title="Registrations Closed"
+                        >
+                          <span className={styles.lockIconAnim}>🔒</span> CLOSED
+                        </button>
+                      ) : (
+                        <button
+                          className={styles.verticalNavRegister}
+                          onClick={() => { setDropOpen(false); setShowRegister(true); }}
+                        >
+                          REGISTER
+                        </button>
+                      )}
                     </>
                   )}
                 </motion.div>
@@ -193,6 +217,11 @@ export default function Navbar() {
         isOpen={showRegister}
         onClose={() => setShowRegister(false)}
         onSuccess={() => setIsRegistered(true)}
+      />
+
+      <ClosedPopup
+        isOpen={showClosedPopup}
+        onClose={() => setShowClosedPopup(false)}
       />
 
       {/* Mobile dropdown */}

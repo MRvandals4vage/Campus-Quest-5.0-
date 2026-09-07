@@ -3,6 +3,8 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import RegisterModal from "./RegisterModal";
+import ClosedPopup from "./ClosedPopup";
+import { useIsRegistrationClosed } from "@/lib/useIsRegistrationClosed";
 const floatingAnimation = {
     y: [0, -12, 0],
     transition: {
@@ -16,7 +18,9 @@ import styles from "./Hero.module.css";
 export default function Hero() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [showClosedPopup, setShowClosedPopup] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);
+    const isClosed = useIsRegistrationClosed();
     return (
         <section className={styles.hero}>
             {/* ================= Background ================= */}
@@ -114,12 +118,22 @@ export default function Hero() {
             </motion.div>
 
             {!isRegistered && (
-                <button
-                    className={`${styles.registerBtn} ${styles.mobileRegister}`}
-                    onClick={() => setShowRegister(true)}
-                >
-                    REGISTER
-                </button>
+                isClosed ? (
+                    <button
+                        className={`${styles.registerBtn} ${styles.mobileRegister} ${styles.lockedBtn}`}
+                        onClick={() => setShowClosedPopup(true)}
+                        title="Registrations Closed"
+                    >
+                        <span className={styles.lockIconAnim}>🔒</span> REGISTRATIONS CLOSED
+                    </button>
+                ) : (
+                    <button
+                        className={`${styles.registerBtn} ${styles.mobileRegister}`}
+                        onClick={() => setShowRegister(true)}
+                    >
+                        REGISTER
+                    </button>
+                )
             )}
 
             {/* ================= Hanging Spider ================= */}
@@ -140,6 +154,12 @@ export default function Hero() {
                 isOpen={showRegister}
                 onClose={() => setShowRegister(false)}
                 onSuccess={() => setIsRegistered(true)}
+            />
+
+            {/* ================= Closed Popup ================= */}
+            <ClosedPopup
+                isOpen={showClosedPopup}
+                onClose={() => setShowClosedPopup(false)}
             />
         </section>
     );
