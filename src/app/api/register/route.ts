@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabaseClient";
-import { isRegistrationClosed } from "@/lib/constants";
 
 interface MemberInput {
   fullName?: string;
@@ -18,14 +17,6 @@ interface RegisterRequestBody {
 
 export async function POST(request: Request) {
   try {
-    // 0. Check deadline
-    if (isRegistrationClosed()) {
-      return NextResponse.json(
-        { error: "Registrations are now closed." },
-        { status: 403 }
-      );
-    }
-
     const body: RegisterRequestBody = await request.json();
     const { teamName, members } = body;
 

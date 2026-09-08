@@ -6,15 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import RegisterModal from "./RegisterModal";
-import ClosedPopup from "./ClosedPopup";
-import { useIsRegistrationClosed } from "@/lib/useIsRegistrationClosed";
-import heroStyles from "./Hero.module.css";
 
 export default function Footer() {
   const [showRegister, setShowRegister] = useState(false);
-  const [showClosedPopup, setShowClosedPopup] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const isClosed = useIsRegistrationClosed();
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith("#")) {
@@ -86,22 +81,12 @@ export default function Footer() {
 
             {/* Register Button */}
             {!isRegistered ? (
-              isClosed ? (
-                <button
-                  onClick={() => setShowClosedPopup(true)}
-                  className="bg-[#222228] text-white/90 border border-red-500/40 hover:border-red-500/80 font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full cursor-pointer whitespace-nowrap flex items-center justify-center tracking-widest gap-3 shadow-[0_0_20px_rgba(226,54,54,0.25)] hover:shadow-[0_0_30px_rgba(226,54,54,0.5)] hover:-translate-y-0.5 transition-all duration-300"
-                  title="Registrations Closed"
-                >
-                  <span className={heroStyles.lockIconAnim}>🔒</span> REGISTRATIONS CLOSED
-                </button>
-              ) : (
-                <button
-                  onClick={() => setShowRegister(true)}
-                  className="bg-white text-black font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest"
-                >
-                  REGISTER
-                </button>
-              )
+              <button
+                onClick={() => setShowRegister(true)}
+                className="bg-white text-black font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest"
+              >
+                REGISTER
+              </button>
             ) : (
               <div className="bg-green-500 text-white font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full shadow-[0_0_15px_rgba(72,187,120,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest">
                 REGISTERED
@@ -143,12 +128,6 @@ export default function Footer() {
         isOpen={showRegister}
         onClose={() => setShowRegister(false)}
         onSuccess={() => setIsRegistered(true)}
-      />
-
-      {/* Closed Popup */}
-      <ClosedPopup
-        isOpen={showClosedPopup}
-        onClose={() => setShowClosedPopup(false)}
       />
     </>
   );

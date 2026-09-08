@@ -1,7 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useIsRegistrationClosed } from "@/lib/useIsRegistrationClosed";
 import styles from "./RegisterModal.module.css";
 
 interface MemberData {
@@ -50,7 +49,6 @@ const emptyMember = (): MemberData => ({
 });
 
 export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterModalProps) {
-    const isClosed = useIsRegistrationClosed();
     const [teamName, setTeamName] = useState("");
     const [members, setMembers] = useState<MemberData[]>([emptyMember(), emptyMember()]);
     const [activeMember, setActiveMember] = useState(0);
@@ -246,10 +244,6 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
 
     const member = members[activeMember];
 
-    if (isClosed) {
-        return null;
-    }
-
     return (
         <AnimatePresence>
             {isOpen && (
@@ -290,30 +284,8 @@ export default function RegisterModal({ isOpen, onClose, onSuccess }: RegisterMo
 
                             <div className={styles.divider} />
 
-                            {/* ── Closed State ── */}
-                            {isClosed ? (
-                                <motion.div
-                                    className={styles.successMessage}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ type: "spring", stiffness: 200 }}
-                                    style={{ padding: "40px 20px" }}
-                                >
-                                    <span style={{ fontSize: "56px", display: "block", marginBottom: "16px" }}>🔒</span>
-                                    <h3 style={{ fontSize: "24px", color: "#ff6b6b", marginBottom: "12px" }}>Registrations Closed</h3>
-                                    <p style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px" }}>
-                                        The deadline for Campus Quest 5.0 registrations (12:00 AM IST) has passed. Registrations are officially closed.
-                                    </p>
-                                    <button
-                                        type="button"
-                                        onClick={resetAndClose}
-                                        className={styles.submitBtn}
-                                        style={{ maxWidth: "200px", margin: "0 auto", background: "rgba(255, 255, 255, 0.15)" }}
-                                    >
-                                        Close
-                                    </button>
-                                </motion.div>
-                            ) : submitStatus === "success" ? (
+                            {/* ── Success State ── */}
+                            {submitStatus === "success" ? (
                                 <motion.div
                                     className={styles.successMessage}
                                     initial={{ opacity: 0, scale: 0.9 }}

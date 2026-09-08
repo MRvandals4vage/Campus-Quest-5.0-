@@ -209,63 +209,6 @@
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
-.lockedBtn {
-    background: linear-gradient(135deg, rgba(30, 30, 35, 0.95), rgba(45, 20, 20, 0.95)) !important;
-    color: rgba(255, 255, 255, 0.85) !important;
-    border: 1.5px solid rgba(226, 54, 54, 0.4) !important;
-    cursor: pointer !important;
-    box-shadow: 0 0 15px rgba(226, 54, 54, 0.2) !important;
-    position: relative;
-    overflow: hidden;
-    gap: 8px;
-}
-
-.lockedBtn:hover {
-    transform: translateY(-2px) !important;
-    border-color: rgba(226, 54, 54, 0.8) !important;
-    box-shadow: 0 0 22px rgba(226, 54, 54, 0.45) !important;
-    color: #ffffff !important;
-}
-
-.lockIconAnim {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    animation: lockJiggle 3s ease-in-out infinite;
-}
-
-@keyframes lockJiggle {
-    0%, 80%, 100% {
-        transform: rotate(0deg) scale(1);
-    }
-    85% {
-        transform: rotate(-10deg) scale(1.15);
-    }
-    90% {
-        transform: rotate(10deg) scale(1.15);
-    }
-    95% {
-        transform: rotate(-6deg) scale(1.08);
-    }
-}
-
-.verticalNavLocked {
-    background: rgba(226, 54, 54, 0.15) !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid rgba(226, 54, 54, 0.35) !important;
-    cursor: pointer !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.verticalNavLocked:hover {
-    background: rgba(226, 54, 54, 0.25) !important;
-    color: #fff !important;
-    border-color: rgba(226, 54, 54, 0.6) !important;
-}
-
 .logo {
     display: flex;
     align-items: center;
