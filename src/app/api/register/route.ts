@@ -16,6 +16,10 @@ interface RegisterRequestBody {
 }
 
 export async function POST(request: Request) {
+  return NextResponse.json(
+    { error: "Registrations are currently closed." },
+    { status: 403 }
+  );
   try {
     const body: RegisterRequestBody = await request.json();
     const { teamName, members } = body;
