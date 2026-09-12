@@ -15,7 +15,7 @@ export default function Sponsors() {
     maxWidth: 'none',
   };
 
-  const [mobileIdx, setMobileIdx] = useState(1); // 0=Gold, 1=Silver, 2=Bronze
+  const [mobileIdx, setMobileIdx] = useState(1); // 0=Silver, 1=Gold, 2=Bronze
 
   useEffect(() => {
     // Increased strands to 12 for a denser, more realistic web
@@ -277,7 +277,7 @@ export default function Sponsors() {
           style={{ gap: 'clamp(20px, 12.45vw, 239px)', perspective: '1600px' }}
         >
 
-          {/* Gold Card */}
+          {/* Silver Card (Left) */}
           <div
             className="card relative flex-shrink-0 transition-transform duration-300 hover:scale-[1.03]"
             data-side="left"
@@ -287,15 +287,39 @@ export default function Sponsors() {
               transform: 'rotateY(25deg) translateZ(-50px)',
             }}
           >
-            <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
-              <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
+            <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
+              <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
             </div>
-            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-center p-4 text-white text-2xl font-black tracking-widest uppercase md:text-3xl lg:text-4xl shadow-xl" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
-              TO BE REVEALED
+            <div
+              className="face back absolute inset-0 overflow-hidden rounded-[25px] flex flex-col items-center justify-between p-5 md:p-6 text-center shadow-xl select-none"
+              style={{
+                boxShadow: '0 0 80px 0 #DFDEDC',
+                background: 'linear-gradient(145deg, #141414, #262626, #141414)',
+                border: '2px solid rgba(223, 222, 220, 0.4)',
+              }}
+            >
+              <img src="/assets/Sponsors/Silver Flipped glow.png" alt="Silver Flipped" style={cardCrop} className="opacity-50 pointer-events-none" />
+              <div className="relative z-10 w-full flex flex-col items-center h-full justify-between py-2">
+                <div className="text-[#DFDEDC] text-xs md:text-sm font-bold tracking-[0.25em] uppercase font-['Orbitron',sans-serif] drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+                  SILVER SPONSOR
+                </div>
+
+                <div className="w-full max-w-[85%] aspect-[16/10] relative flex items-center justify-center bg-white/95 rounded-2xl p-3 md:p-4 shadow-[0_8px_25px_rgba(0,0,0,0.6)] border border-slate-300/30 my-auto">
+                  <img
+                    src="/assets/Sponsors/silikon jpeg.png"
+                    alt="Silikon Engineering Solutions and Private limited"
+                    className="max-w-full max-h-full object-contain rounded-lg"
+                  />
+                </div>
+
+                <div className="text-white font-bold text-xs md:text-sm leading-snug tracking-normal font-['Orbitron',sans-serif] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] px-1">
+                  Silikon Engineering Solutions and Private limited
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Silver Card */}
+          {/* Gold Card (Centre) */}
           <div
             className="card relative flex-shrink-0 transition-transform duration-300 hover:scale-[1.05]"
             data-side="bottom"
@@ -306,15 +330,39 @@ export default function Sponsors() {
               zIndex: 10,
             }}
           >
-            <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
-              <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
+            <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
+              <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
             </div>
-            <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-center p-4 text-black text-2xl font-black tracking-widest uppercase md:text-3xl lg:text-4xl shadow-xl" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
-              TO BE REVEALED
+            <div
+              className="face back absolute inset-0 overflow-hidden rounded-[25px] flex flex-col items-center justify-between p-5 md:p-6 text-center shadow-xl select-none"
+              style={{
+                boxShadow: '0 0 100px 0 #B96E1E',
+                background: 'linear-gradient(145deg, #181206, #2d1f08, #181206)',
+                border: '2px solid rgba(255, 223, 0, 0.4)',
+              }}
+            >
+              <img src="/assets/Sponsors/Gold flipped glow.png" alt="Gold Flipped" style={cardCrop} className="opacity-50 pointer-events-none" />
+              <div className="relative z-10 w-full flex flex-col items-center h-full justify-between py-2">
+                <div className="text-[#FFDF00] text-xs md:text-sm font-bold tracking-[0.25em] uppercase font-['Orbitron',sans-serif] drop-shadow-[0_0_8px_rgba(255,223,0,0.6)]">
+                  GOLD SPONSOR
+                </div>
+
+                <div className="w-full max-w-[85%] aspect-[16/10] relative flex items-center justify-center bg-white/95 rounded-2xl p-3 md:p-4 shadow-[0_8px_25px_rgba(0,0,0,0.6)] border border-amber-300/30 my-auto">
+                  <img
+                    src="/assets/Sponsors/BokoEco_logo.jpeg"
+                    alt="BoKo Eco"
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+
+                <div className="text-white font-extrabold text-sm md:text-lg tracking-wider font-['Orbitron',sans-serif] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                  BoKo Eco
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Bronze Card */}
+          {/* Bronze Card (Right) */}
           <div
             className="card relative flex-shrink-0 transition-transform duration-300 hover:scale-[1.03]"
             data-side="right"
@@ -354,11 +402,35 @@ export default function Sponsors() {
                 data-side="bottom"
                 style={{ aspectRatio: '321 / 420' }}
               >
-                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
-                  <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
+                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
+                  <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
                 </div>
-                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-white text-2xl font-black tracking-widest uppercase shadow-xl text-center p-4" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFDF00, #B96E1E)', boxShadow: '0 0 100px 0 #B96E1E' }}>
-                  TO BE REVEALED
+                <div
+                  className="face back absolute inset-0 overflow-hidden rounded-[25px] flex flex-col items-center justify-between p-4 text-center shadow-xl select-none"
+                  style={{
+                    boxShadow: '0 0 80px 0 #DFDEDC',
+                    background: 'linear-gradient(145deg, #141414, #262626, #141414)',
+                    border: '2px solid rgba(223, 222, 220, 0.4)',
+                  }}
+                >
+                  <img src="/assets/Sponsors/Silver Flipped glow.png" alt="Silver Flipped" style={cardCrop} className="opacity-50 pointer-events-none" />
+                  <div className="relative z-10 w-full flex flex-col items-center h-full justify-between py-1">
+                    <div className="text-[#DFDEDC] text-xs font-bold tracking-[0.2em] uppercase font-['Orbitron',sans-serif] drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]">
+                      SILVER SPONSOR
+                    </div>
+
+                    <div className="w-full max-w-[85%] aspect-[16/10] relative flex items-center justify-center bg-white/95 rounded-2xl p-2.5 shadow-[0_6px_20px_rgba(0,0,0,0.6)] border border-slate-300/30 my-auto">
+                      <img
+                        src="/assets/Sponsors/silikon jpeg.png"
+                        alt="Silikon Engineering Solutions and Private limited"
+                        className="max-w-full max-h-full object-contain rounded-lg"
+                      />
+                    </div>
+
+                    <div className="text-white font-bold text-[11px] leading-tight tracking-normal font-['Orbitron',sans-serif] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] px-1">
+                      Silikon Engineering Solutions and Private limited
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -369,11 +441,35 @@ export default function Sponsors() {
                 data-side="bottom"
                 style={{ aspectRatio: '321 / 420' }}
               >
-                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 80px 0 #DFDEDC' }}>
-                  <img src="/assets/Sponsors/Silver glow.png" alt="Silver Sponsor" style={cardCrop} />
+                <div className="face front absolute inset-0 overflow-hidden rounded-[25px]" style={{ boxShadow: '0 0 100px 0 #B96E1E' }}>
+                  <img src="/assets/Sponsors/Gold glow.png" alt="Gold Sponsor" style={cardCrop} />
                 </div>
-                <div className="face back absolute inset-0 rounded-[25px] flex items-center justify-center text-black text-2xl font-black tracking-widest uppercase shadow-xl text-center p-4" style={{ fontFamily: 'Orbitron, sans-serif', background: 'linear-gradient(135deg, #FFFFFF, #DFDEDC, #9E9E9E)', boxShadow: '0 0 80px 0 #DFDEDC' }}>
-                  TO BE REVEALED
+                <div
+                  className="face back absolute inset-0 overflow-hidden rounded-[25px] flex flex-col items-center justify-between p-4 text-center shadow-xl select-none"
+                  style={{
+                    boxShadow: '0 0 100px 0 #B96E1E',
+                    background: 'linear-gradient(145deg, #181206, #2d1f08, #181206)',
+                    border: '2px solid rgba(255, 223, 0, 0.4)',
+                  }}
+                >
+                  <img src="/assets/Sponsors/Gold flipped glow.png" alt="Gold Flipped" style={cardCrop} className="opacity-50 pointer-events-none" />
+                  <div className="relative z-10 w-full flex flex-col items-center h-full justify-between py-1">
+                    <div className="text-[#FFDF00] text-xs font-bold tracking-[0.2em] uppercase font-['Orbitron',sans-serif] drop-shadow-[0_0_8px_rgba(255,223,0,0.6)]">
+                      GOLD SPONSOR
+                    </div>
+
+                    <div className="w-full max-w-[85%] aspect-[16/10] relative flex items-center justify-center bg-white/95 rounded-2xl p-2.5 shadow-[0_6px_20px_rgba(0,0,0,0.6)] border border-amber-300/30 my-auto">
+                      <img
+                        src="/assets/Sponsors/BokoEco_logo.jpeg"
+                        alt="BoKo Eco"
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+
+                    <div className="text-white font-extrabold text-sm tracking-wider font-['Orbitron',sans-serif] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                      BoKo Eco
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
