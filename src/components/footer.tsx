@@ -82,10 +82,10 @@ export default function Footer() {
             {/* Register Button */}
             {!isRegistered ? (
               <button
-                onClick={() => setShowRegister(true)}
-                className="bg-white text-black font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest"
+                disabled
+                className="bg-white/50 text-black font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full shadow-[0_0_15px_rgba(255,255,255,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest cursor-not-allowed"
               >
-                REGISTER
+                REGISTRATIONS CLOSED
               </button>
             ) : (
               <div className="bg-green-500 text-white font-bold text-2xl px-16 py-4 min-w-[280px] rounded-full shadow-[0_0_15px_rgba(72,187,120,0.4)] whitespace-nowrap flex items-center justify-center tracking-widest">

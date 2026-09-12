@@ -116,9 +116,10 @@ export default function Hero() {
             {!isRegistered && (
                 <button
                     className={`${styles.registerBtn} ${styles.mobileRegister}`}
-                    onClick={() => setShowRegister(true)}
+                    disabled
+                    style={{ cursor: "not-allowed", opacity: 0.7 }}
                 >
-                    REGISTER
+                    REGISTRATIONS CLOSED
                 </button>
             )}
 

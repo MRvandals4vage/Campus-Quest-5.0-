@@ -96,9 +96,10 @@ export default function Navbar() {
           {!isRegistered && (
             <button
               className={`${styles.registerBtn} ${styles.desktopRegister}`}
-              onClick={() => setShowRegister(true)}
+              disabled
+              style={{ cursor: "not-allowed", opacity: 0.7 }}
             >
-              REGISTER
+              REGISTRATIONS CLOSED
             </button>
           )}
 
@@ -176,9 +177,10 @@ export default function Navbar() {
                       <div className={styles.verticalNavDivider} />
                       <button
                         className={styles.verticalNavRegister}
-                        onClick={() => { setDropOpen(false); setShowRegister(true); }}
+                        disabled
+                        style={{ cursor: "not-allowed", opacity: 0.7 }}
                       >
-                        REGISTER
+                        REGISTRATIONS CLOSED
                       </button>
                     </>
                   )}
